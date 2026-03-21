@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Estate Property Calculator</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --text: #1d1d1f;
+    --text2: #6e6e73;
+    --border: #d2d2d7;
+    --blue: #0071e3;
+    --blue-light: #e8f4fd;
+    --green: #28cd41;
+    --green-bg: #e8f9eb;
+    --red: #ff3b30;
+    --red-bg: #fdecea;
+    --orange: #ff9500;
+    --orange-bg: #fff4e5;
+    --yellow: #ffcc00;
+    --purple: #af52de;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 4px 24px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1d1d1f 0%, #2d2d30 100%);
+    color: #fff;
+    padding: 14px 24px 12px;
+    text-align: center;
+  }
+  .header h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+  .header p { color: #a1a1a6; margin-top: 4px; font-size: 15px; }
+  .header-icon { margin-bottom: 6px; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title .icon-circle {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .form-group .hint {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 2px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  input[type="number"], input[type="text"], select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    background: #fafafa;
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236e6e73' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--blue);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.1);
+  }
+  input.required, select.required {
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+    border-color: var(--blue);
+  }
+  input.required:focus, select.required:focus {
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.25);
+  }
+  .cash-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #28cd41, #1fa834);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+  }
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .toggle-btn span {
+    padding: 4px 10px;
+    transition: all 0.2s;
+    color: var(--text2);
+  }
+  .toggle-btn span.active {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .row { display: flex; gap: 16px; }
+  .row > .form-group { flex: 1; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    font-family: inherit;
+  }
+  .btn:hover { background: #0077ed; transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .btn:active { transform: translateY(0); }
+  .btn-secondary {
+    background: var(--bg);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    font-size: 14px;
+    padding: 8px 16px;
+    width: auto;
+  }
+  .btn-secondary:hover { background: #e8e8ed; }
+
+  /* Results */
+  #results { display: none; }
+
+  .score-card {
+    text-align: center;
+    padding: 32px 24px;
+    border-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
+  }
+  .score-card.grade-a { background: linear-gradient(135deg, #28cd41, #1fa834); color: #fff; }
+  .score-card.grade-b { background: linear-gradient(135deg, #5ac8fa, #0071e3); color: #fff; }
+  .score-card.grade-c { background: linear-gradient(135deg, #ff9500, #e08600); color: #fff; }
+  .score-card.grade-d { background: linear-gradient(135deg, #ff6b6b, #ff3b30); color: #fff; }
+  .score-card.grade-f { background: linear-gradient(135deg, #8e8e93, #636366); color: #fff; }
+
+  .score-letter { font-size: 72px; font-weight: 800; line-height: 1; }
+  .score-label { font-size: 20px; font-weight: 600; margin-top: 8px; opacity: 0.95; }
+  .score-sublabel { font-size: 14px; margin-top: 4px; opacity: 0.8; }
+
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+  .metric-box {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+  }
+  .metric-box.highlight-green { background: var(--green-bg); border: 1.5px solid #28cd41; }
+  .metric-box.highlight-red { background: var(--red-bg); border: 1.5px solid #ff3b30; }
+  .metric-box.highlight-orange { background: var(--orange-bg); border: 1.5px solid #ff9500; }
+
+  .metric-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .metric-box.highlight-green .metric-value { color: #1a8a2c; }
+  .metric-box.highlight-red .metric-value { color: #cc2f26; }
+  .metric-box.highlight-orange .metric-value { color: #cc7700; }
+
+  .metric-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+  .metric-explain {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  /* Cash flow table */
+  .cf-table { width: 100%; border-collapse: collapse; }
+  .cf-table th, .cf-table td {
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 14px;
+  }
+  .cf-table thead th {
+    background: var(--bg);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text2);
+    border-bottom: 2px solid var(--border);
+  }
+  .cf-table tbody tr { border-bottom: 1px solid #f0f0f0; }
+  .cf-table tbody tr:hover { background: #fafafa; }
+  .cf-table .income { color: #1a8a2c; font-weight: 600; }
+  .cf-table .expense { color: #cc2f26; }
+  .cf-table .total-row {
+    font-weight: 700;
+    border-top: 2px solid var(--border);
+    font-size: 16px;
+  }
+  .cf-table .subtotal-row {
+    font-weight: 600;
+    background: var(--bg);
+  }
+  .cf-table td:last-child, .cf-table th:last-child { text-align: right; }
+
+  /* Comparison bar */
+  .comparison-bar-wrap { margin: 12px 0; }
+  .comparison-label-row {
+    display: flex; justify-content: space-between;
+    font-size: 13px; font-weight: 600; margin-bottom: 4px;
+  }
+  .comparison-bar {
+    height: 28px;
+    background: #e8e8ed;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .comparison-fill {
+    height: 100%;
+    border-radius: 14px;
+    transition: width 0.6s ease;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 12px; font-weight: 700; color: #fff;
+    min-width: 40px;
+  }
+  .comparison-marker {
+    position: absolute;
+    top: -2px; bottom: -2px;
+    width: 3px;
+    background: var(--text);
+    border-radius: 2px;
+    z-index: 2;
+  }
+  .comparison-marker-label {
+    position: absolute;
+    top: -18px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text2);
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+
+  /* Tooltip / info */
+  .info-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+
+  /* Expense items */
+  .expense-list { list-style: none; }
+  .expense-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .expense-item:last-child { border-bottom: none; }
+  .expense-item input { max-width: 120px; text-align: right; }
+  .expense-item .ei-name { flex: 1; font-size: 14px; }
+  .expense-item .ei-pct { font-size: 12px; color: var(--text2); min-width: 60px; text-align: right; }
+
+  .add-expense-row {
+    display: flex; gap: 8px; margin-top: 12px;
+  }
+  .add-expense-row input { flex: 1; }
+
+  /* Learn more sections */
+  .learn-box {
+    background: var(--blue-light);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #333;
+  }
+  .learn-box strong { color: var(--blue); }
+
+  /* Amortization mini chart */
+  .bar-chart { display: flex; align-items: flex-end; gap: 2px; height: 120px; margin-top: 16px; }
+  .bar-chart .bar {
+    flex: 1;
+    border-radius: 3px 3px 0 0;
+    min-width: 2px;
+    position: relative;
+    cursor: pointer;
+  }
+  .bar-chart .bar .bar-principal { background: var(--blue); border-radius: 0 0 0 0; }
+  .bar-chart .bar .bar-interest { background: #ff9500; border-radius: 3px 3px 0 0; }
+
+  .chart-legend {
+    display: flex; gap: 16px; margin-top: 8px; font-size: 12px; color: var(--text2);
+  }
+  .chart-legend span { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .pill-green { background: var(--green-bg); color: #1a8a2c; }
+  .pill-red { background: var(--red-bg); color: #cc2f26; }
+  .pill-orange { background: var(--orange-bg); color: #cc7700; }
+  .pill-blue { background: var(--blue-light); color: var(--blue); }
+
+  .full-width { grid-column: 1 / -1; }
+  .mt-16 { margin-top: 16px; }
+  .mb-8 { margin-bottom: 8px; }
+
+  /* Tabs */
+  .tab-bar { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+  .tab-btn {
+    padding: 10px 20px;
+    font-size: 14px; font-weight: 600;
+    background: none; border: none; cursor: pointer;
+    color: var(--text2);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Print */
+  @media print {
+    .header { padding: 24px; }
+    .btn, .add-expense-row, .tab-bar { display: none; }
+    .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+    .tab-content { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+  </div>
+  <h1>Real Estate Property Calculator</h1>
+  <p>Analyze any investment property in minutes</p>
+</div>
+
+<div class="container">
+  <!-- INPUT SECTION -->
+  <div class="grid">
+    <!-- Property Details -->
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-circle" style="background: linear-gradient(135deg, #0071e3, #005bb5);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        Property Details
+      </div>
+
+      <div class="form-group">
+        <label>Purchase Price ($)</label>
+        <input type="text" inputmode="numeric" id="purchasePrice" value="800,000" class="required currency-input">
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Down Payment (%)</label>
+          <input type="number" id="downPaymentPct" value="25" min="0" max="100" step="1">
+          <div class="hint" id="downPaymentDollar">$200,000 <span class="cash-badge">CASH</span></div>
+        </div>
+        <div class="form-group">
+          <label>Closing Costs (%)</label>
+          <input type="number" id="closingCostsPct" value="3" min="0" max="10" step="0.5">
+          <div class="hint" id="closingCostsDollar">$24,000</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Mortgage Rate (%)</label>
+          <input type="number" id="mortgageRate" value="7.0" min="0" max="20" step="0.125">
+        </div>
+        <div class="form-group">
+          <label>Loan Term (Years)</label>
+          <select id="loanTerm">
+            <option value="30" selected>30 years</option>
+            <option value="20">20 years</option>
+            <option value="15">15 years</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Income & Taxes -->
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-circle" style="background: linear-gradient(135deg, #28cd41, #1fa834);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        Income &amp; Taxes
+      </div>
+
+      <div class="form-group">
+        <label>Monthly Rental Income ($)</label>
+        <input type="text" inputmode="numeric" id="monthlyRent" value="4,000" class="required currency-input">
+        <div class="hint">Tip: Check Zillow, Rentometer, or Craigslist for rental comps in the area</div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Annual Property Tax (%)</label>
+          <input type="number" id="propertyTaxPct" value="1.5" min="0" max="10" step="0.1">
+          <div class="hint" id="propertyTaxDollar">$12,000/yr ($1,000/mo)</div>
+        </div>
+        <div class="form-group">
+          <label>Annual Insurance ($)</label>
+          <input type="text" inputmode="numeric" id="insurance" value="8,000" class="currency-input">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Vacancy Rate (%)</label>
+          <input type="number" id="vacancyRate" value="5" min="0" max="50" step="1">
+          <div class="hint">Industry average: 5-8%</div>
+        </div>
+
+        <div class="form-group">
+          <label>Annual Appreciation (%)</label>
+          <input type="number" id="appreciation" value="3" min="-5" max="20" step="0.5">
+          <div class="hint">US historical avg: ~3-4%/yr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expenses Card (full width) -->
+    <div class="card full-width">
+      <div class="card-title">
+        <div class="icon-circle" style="background: linear-gradient(135deg, #ff9500, #e08600);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+        </div>
+        Monthly Expenses &amp; Maintenance
+      </div>
+
+      <div class="grid" style="gap: 16px;">
+        <div>
+          <ul class="expense-list" id="expenseList">
+            <li class="expense-item">
+              <span class="ei-name">HOA / Condo Fees</span>
+              <input type="number" id="exp_hoa" value="400" min="0" step="10">
+              <span class="ei-pct" id="exp_hoa_pct">—</span>
+            </li>
+            <li class="expense-item">
+              <span class="ei-name">Property Management</span>
+              <input type="number" id="exp_management" value="8" min="0" step="1">
+              <span class="ei-pct">
+                <div class="toggle-btn" id="mgmtToggle" onclick="toggleMode('mgmt')">
+                  <span class="active" data-mode="pct">%</span><span data-mode="flat">$</span>
+                </div>
+              </span>
+            </li>
+            <li class="expense-item">
+              <span class="ei-name">Repairs &amp; Maintenance</span>
+              <input type="number" id="exp_repairs" value="10" min="0" step="1">
+              <span class="ei-pct">
+                <div class="toggle-btn" id="repairsToggle" onclick="toggleMode('repairs')">
+                  <span class="active" data-mode="pct">%</span><span data-mode="flat">$</span>
+                </div>
+              </span>
+            </li>
+            <li class="expense-item">
+              <span class="ei-name">CapEx Reserve (Roof, HVAC, etc.)</span>
+              <input type="number" id="exp_capex" value="150" min="0" step="10">
+              <span class="ei-pct" id="exp_capex_pct">—</span>
+            </li>
+            <li class="expense-item">
+              <span class="ei-name">Utilities (if landlord-paid)</span>
+              <input type="number" id="exp_utilities" value="0" min="0" step="10">
+              <span class="ei-pct" id="exp_utilities_pct">—</span>
+            </li>
+            <li class="expense-item">
+              <span class="ei-name">Lawn / Snow / Pest</span>
+              <input type="number" id="exp_lawn" value="200" min="0" step="10">
+              <span class="ei-pct" id="exp_lawn_pct">—</span>
+            </li>
+          </ul>
+
+          <!-- Custom expense adder -->
+          <div class="add-expense-row">
+            <input type="text" id="newExpName" placeholder="New expense name...">
+            <input type="number" id="newExpAmount" placeholder="$/mo" min="0" style="max-width:100px;">
+            <button class="btn-secondary" onclick="addExpense()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div class="learn-box">
+            <strong>Quick Expense Rules of Thumb:</strong><br><br>
+            <strong>50% Rule:</strong> Total operating expenses (not including mortgage) often run about 50% of gross rent. If your rent is $2,000/mo, budget $1,000/mo for expenses.<br><br>
+            <strong>1% Rule:</strong> Monthly rent should be at least 1% of purchase price. A $300K property should rent for $3,000/mo to be a solid investment.<br><br>
+            <strong>CapEx Reserve:</strong> Save 5-10% of rent for big-ticket replacements (roof every 20 yrs, HVAC every 15 yrs, appliances every 10 yrs).<br><br>
+            <strong>Property Management:</strong> Even if self-managing, budget 8-10% of rent so your numbers work if you hire a manager later.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="calculate()" id="calcBtn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="10" y2="14"/><line x1="14" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="10" y2="18"/><line x1="14" y1="18" x2="16" y2="18"/>
+    </svg>
+    Analyze Property
+  </button>
+
+  <!-- RESULTS SECTION -->
+  <div id="results">
+    <hr class="section-divider" style="margin-top:32px;">
+
+    <!-- Investment Score -->
+    <div class="card" id="scoreCardWrap">
+      <div id="cashFlowWarning" style="display:none; background: linear-gradient(135deg, #fff0f0, #ffe5e5); border: 1.5px solid #ff3b30; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px; display: none;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:36px; height:36px; border-radius:50%; background:#ff3b30; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:16px; color:#cc2f26;" id="cashFlowWarningTitle"></div>
+            <div style="font-size:13px; color:#994440; margin-top:2px;" id="cashFlowWarningDetail"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid" style="gap: 24px;">
+        <div class="score-card" id="scoreCard">
+          <div class="score-letter" id="scoreLetter">—</div>
+          <div class="score-label" id="scoreLabel">Calculating...</div>
+          <div class="score-sublabel" id="scoreSublabel"></div>
+        </div>
+        <div>
+          <h3 style="font-size: 18px; margin-bottom: 12px;">What does this grade mean?</h3>
+          <div id="scoreExplanation" style="font-size: 14px; line-height: 1.7; color: #444;"></div>
+          <div id="scoreChecklist" style="margin-top: 16px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="card">
+      <div class="card-title">
+        <div class="icon-circle" style="background: linear-gradient(135deg, #5856d6, #4240b0);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        Key Investment Metrics
+      </div>
+      <div class="metric-grid" id="metricsGrid"></div>
+    </div>
+
+    <!-- Tabs: Cash Flow / Comparison / Amortization -->
+    <div class="card full-width">
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('cashflow', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Monthly Cash Flow
+        </button>
+        <button class="tab-btn" onclick="switchTab('comparison', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          vs. Other Investments
+        </button>
+        <button class="tab-btn" onclick="switchTab('amortization', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          Loan Amortization
+        </button>
+        <button class="tab-btn" onclick="switchTab('longterm', this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          10-Year Projection
+        </button>
+      </div>
+
+      <!-- Cash Flow Tab -->
+      <div class="tab-content active" id="tab-cashflow">
+        <table class="cf-table" id="cashflowTable"></table>
+      </div>
+
+      <!-- Comparison Tab -->
+      <div class="tab-content" id="tab-comparison">
+        <div id="comparisonContent"></div>
+      </div>
+
+      <!-- Amortization Tab -->
+      <div class="tab-content" id="tab-amortization">
+        <div id="amortContent"></div>
+      </div>
+
+      <!-- Long-term projection -->
+      <div class="tab-content" id="tab-longterm">
+        <div id="longtermContent"></div>
+      </div>
+    </div>
+
+    <!-- Educational Glossary -->
+    <div class="card full-width">
+      <div class="card-title">
+        <div class="icon-circle" style="background: linear-gradient(135deg, #af52de, #8a3db8);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+        </div>
+        Glossary &amp; Learning Guide
+      </div>
+      <div class="grid" style="gap: 16px;">
+        <div>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>Cap Rate (Capitalization Rate)</strong> — Net Operating Income / Property Value. Tells you the return if you paid all cash. A 5-10% cap rate is typical; higher = more return but often more risk.</p>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>Cash-on-Cash Return</strong> — Annual pre-tax cash flow / Total cash invested. This is YOUR actual return on the money you put in. Above 8% is good; above 12% is excellent.</p>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>NOI (Net Operating Income)</strong> — Gross income minus all operating expenses (but NOT mortgage payments). Used to calculate cap rate and property value.</p>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>DSCR (Debt Service Coverage Ratio)</strong> — NOI / Annual Debt Payments. Banks want this above 1.25. Below 1.0 means the property doesn't generate enough to cover the mortgage.</p>
+        </div>
+        <div>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>GRM (Gross Rent Multiplier)</strong> — Purchase Price / Annual Gross Rent. Lower is better. Under 15 is typically considered good for investment properties.</p>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>The 1% Rule</strong> — Monthly rent should be at least 1% of purchase price. Quick filter to see if a deal is worth deeper analysis.</p>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>The 50% Rule</strong> — Expect about 50% of rental income to go toward expenses (not including mortgage). Useful for quick estimates.</p>
+          <p style="margin-bottom:12px;font-size:14px;"><strong>Break-Even Ratio</strong> — (Operating Expenses + Debt Service) / Gross Income. Below 85% is healthy; above 100% means you're losing money.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Helpers
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+const fmtD = n => '$' + fmt(Math.abs(n));
+const fmtPct = (n, d=1) => n.toFixed(d) + '%';
+
+// Currency formatting helpers
+function formatWithCommas(value) {
+  const digits = value.replace(/[^0-9]/g, '');
+  if (!digits) return '';
+  return parseInt(digits, 10).toLocaleString('en-US');
+}
+
+function getRawNumber(id) {
+  const el = $(id);
+  if (!el) return 0;
+  const raw = el.value.replace(/[^0-9.-]/g, '');
+  return parseFloat(raw) || 0;
+}
+
+// Attach comma formatting to currency inputs
+document.querySelectorAll('.currency-input').forEach(input => {
+  input.addEventListener('input', function() {
+    const pos = this.selectionStart;
+    const oldLen = this.value.length;
+    this.value = formatWithCommas(this.value);
+    const newLen = this.value.length;
+    const newPos = pos + (newLen - oldLen);
+    this.setSelectionRange(newPos, newPos);
+  });
+});
+
+// Toggle mode state: 'pct' or 'flat'
+const toggleModes = { mgmt: 'pct', repairs: 'pct' };
+
+function toggleMode(field) {
+  const current = toggleModes[field];
+  const next = current === 'pct' ? 'flat' : 'pct';
+  toggleModes[field] = next;
+  const toggleEl = $(field === 'mgmt' ? 'mgmtToggle' : 'repairsToggle');
+  toggleEl.querySelectorAll('span').forEach(s => {
+    s.classList.toggle('active', s.dataset.mode === next);
+  });
+  // Swap value intelligently
+  const input = $(field === 'mgmt' ? 'exp_management' : 'exp_repairs');
+  const rent = getRawNumber('monthlyRent');
+  const val = parseFloat(input.value) || 0;
+  if (next === 'flat') {
+    input.value = Math.round(rent * val / 100);
+    input.step = '10';
+  } else {
+    input.value = rent > 0 ? (val / rent * 100).toFixed(1) : '0';
+    input.step = '1';
+  }
+}
+
+// Live update helpers
+$('purchasePrice').addEventListener('input', updateHints);
+$('downPaymentPct').addEventListener('input', updateHints);
+$('closingCostsPct').addEventListener('input', updateHints);
+$('propertyTaxPct').addEventListener('input', updateHints);
+
+function updateHints() {
+  const pp = getRawNumber('purchasePrice');
+  const dp = parseFloat($('downPaymentPct').value) || 0;
+  const cc = parseFloat($('closingCostsPct').value) || 0;
+  const taxPct = parseFloat($('propertyTaxPct').value) || 0;
+  const annualTax = pp * taxPct / 100;
+  $('downPaymentDollar').innerHTML = fmtD(pp * dp / 100) + ' <span class="cash-badge">CASH</span>';
+  $('closingCostsDollar').textContent = fmtD(pp * cc / 100);
+  $('propertyTaxDollar').textContent = fmtD(annualTax) + '/yr (' + fmtD(annualTax / 12) + '/mo)';
+}
+
+// Custom expenses
+let customExpenses = [];
+function addExpense() {
+  const name = $('newExpName').value.trim();
+  const amount = parseFloat($('newExpAmount').value) || 0;
+  if (!name) return;
+  const id = 'custom_' + Date.now();
+  customExpenses.push({ id, name, amount });
+  const li = document.createElement('li');
+  li.className = 'expense-item';
+  li.innerHTML = `
+    <span class="ei-name">${name}</span>
+    <input type="number" id="${id}" value="${amount}" min="0" step="10">
+    <span class="ei-pct">
+      <button class="btn-secondary" onclick="removeExpense('${id}', this)" style="padding:4px 8px;font-size:12px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </span>`;
+  $('expenseList').appendChild(li);
+  $('newExpName').value = '';
+  $('newExpAmount').value = '';
+}
+
+function removeExpense(id, btn) {
+  customExpenses = customExpenses.filter(e => e.id !== id);
+  btn.closest('.expense-item').remove();
+}
+
+// Tabs
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  $('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Mortgage calc
+function calcMortgage(principal, annualRate, years) {
+  if (annualRate === 0) return { monthly: principal / (years * 12), totalInterest: 0, schedule: [] };
+  const r = annualRate / 100 / 12;
+  const n = years * 12;
+  const monthly = principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  let balance = principal;
+  let totalInterest = 0;
+  const schedule = [];
+  for (let i = 0; i < n; i++) {
+    const interest = balance * r;
+    const principalPmt = monthly - interest;
+    totalInterest += interest;
+    balance -= principalPmt;
+    schedule.push({ month: i + 1, principal: principalPmt, interest, balance: Math.max(0, balance), totalInterest });
+  }
+  return { monthly, totalInterest, schedule };
+}
+
+// MAIN CALCULATION
+function calculate() {
+  const pp = getRawNumber('purchasePrice');
+  const dpPct = parseFloat($('downPaymentPct').value) || 0;
+  const ccPct = parseFloat($('closingCostsPct').value) || 0;
+  const rate = parseFloat($('mortgageRate').value) || 0;
+  const term = parseInt($('loanTerm').value);
+  const rent = getRawNumber('monthlyRent');
+  const propTaxPct = parseFloat($('propertyTaxPct').value) || 0;
+  const propTax = pp * propTaxPct / 100;
+  const ins = getRawNumber('insurance');
+  const vacancyPct = parseFloat($('vacancyRate').value) || 0;
+  const appreciation = parseFloat($('appreciation').value) || 0;
+
+  // Expenses
+  const hoa = parseFloat($('exp_hoa').value) || 0;
+
+  // Management: check toggle mode
+  const mgmtVal = parseFloat($('exp_management').value) || 0;
+  const management = toggleModes.mgmt === 'pct' ? (rent * mgmtVal / 100) : mgmtVal;
+
+  // Repairs: check toggle mode
+  const repairsVal = parseFloat($('exp_repairs').value) || 0;
+  const repairs = toggleModes.repairs === 'pct' ? (rent * repairsVal / 100) : repairsVal;
+
+  const capex = parseFloat($('exp_capex').value) || 0;
+  const utilities = parseFloat($('exp_utilities').value) || 0;
+  const lawn = parseFloat($('exp_lawn').value) || 0;
+  let customTotal = 0;
+  customExpenses.forEach(e => { customTotal += parseFloat($(e.id).value) || 0; });
+
+  // Core numbers
+  const downPayment = pp * dpPct / 100;
+  const closingCosts = pp * ccPct / 100;
+  const loanAmount = pp - downPayment;
+  const totalCashInvested = downPayment + closingCosts;
+  const mortgage = calcMortgage(loanAmount, rate, term);
+  const monthlyMortgage = mortgage.monthly;
+
+  const grossMonthlyRent = rent;
+  const vacancyLoss = rent * vacancyPct / 100;
+  const effectiveRent = rent - vacancyLoss;
+
+  const monthlyTax = propTax / 12;
+  const monthlyIns = ins / 12;
+  const totalMonthlyExpenses = monthlyTax + monthlyIns + hoa + management + repairs + capex + utilities + lawn + customTotal;
+  const noi_monthly = effectiveRent - totalMonthlyExpenses;
+  const noi_annual = noi_monthly * 12;
+  const monthlyCashFlow = noi_monthly - monthlyMortgage;
+  const annualCashFlow = monthlyCashFlow * 12;
+
+  // Metrics
+  const capRate = pp > 0 ? (noi_annual / pp) * 100 : 0;
+  const cocReturn = totalCashInvested > 0 ? (annualCashFlow / totalCashInvested) * 100 : 0;
+  const grm = grossMonthlyRent > 0 ? pp / (grossMonthlyRent * 12) : 0;
+  const dscr = monthlyMortgage > 0 ? noi_monthly / monthlyMortgage : Infinity;
+  const onePercent = pp > 0 ? (grossMonthlyRent / pp) * 100 : 0;
+  const fiftyPctCheck = grossMonthlyRent > 0 ? (totalMonthlyExpenses / grossMonthlyRent) * 100 : 0;
+  const breakEven = grossMonthlyRent > 0 ? ((totalMonthlyExpenses + monthlyMortgage) / effectiveRent) * 100 : 0;
+  const totalROI = totalCashInvested > 0 ? ((annualCashFlow + (pp * appreciation / 100) + (mortgage.schedule.length > 0 ? mortgage.schedule.slice(0,12).reduce((s,m) => s + m.principal, 0) : 0)) / totalCashInvested) * 100 : 0;
+
+  // Show results
+  $('results').style.display = 'block';
+  setTimeout(() => $('results').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+
+  // Cash flow warning
+  const warningEl = $('cashFlowWarning');
+  if (monthlyCashFlow < 0) {
+    warningEl.style.display = 'block';
+    $('cashFlowWarningTitle').textContent = 'It will cost you ' + fmtD(Math.abs(monthlyCashFlow)) + '/mo to hold this property!';
+    $('cashFlowWarningDetail').innerHTML = 'That\u2019s ' + fmtD(Math.abs(annualCashFlow)) + '/year out of pocket. <span style="color:#1a8a2c;font-weight:600;">Even though this property may appreciate at ' + fmtD(pp * appreciation / 100) + '/year.</span>';
+  } else {
+    warningEl.style.display = 'none';
+  }
+
+  // === SCORE ===
+  let score = 0;
+  const checks = [];
+
+  // Cash flow positive?
+  if (monthlyCashFlow > 0) { score += 25; checks.push({ pass: true, text: 'Positive monthly cash flow (' + fmtD(monthlyCashFlow) + '/mo)' }); }
+  else { checks.push({ pass: false, text: 'Negative cash flow (' + (monthlyCashFlow < 0 ? '-' : '') + fmtD(monthlyCashFlow) + '/mo)' }); }
+
+  // CoC > 8%?
+  if (cocReturn >= 12) { score += 20; checks.push({ pass: true, text: 'Excellent cash-on-cash return (' + fmtPct(cocReturn) + ')' }); }
+  else if (cocReturn >= 8) { score += 15; checks.push({ pass: true, text: 'Good cash-on-cash return (' + fmtPct(cocReturn) + ')' }); }
+  else if (cocReturn >= 4) { score += 8; checks.push({ pass: false, text: 'Below-average cash-on-cash return (' + fmtPct(cocReturn) + ')' }); }
+  else { checks.push({ pass: false, text: 'Poor cash-on-cash return (' + fmtPct(cocReturn) + ')' }); }
+
+  // Cap rate > 5%?
+  if (capRate >= 8) { score += 15; checks.push({ pass: true, text: 'Strong cap rate (' + fmtPct(capRate) + ')' }); }
+  else if (capRate >= 5) { score += 10; checks.push({ pass: true, text: 'Decent cap rate (' + fmtPct(capRate) + ')' }); }
+  else { score += 3; checks.push({ pass: false, text: 'Low cap rate (' + fmtPct(capRate) + ')' }); }
+
+  // 1% rule
+  if (onePercent >= 1) { score += 15; checks.push({ pass: true, text: 'Passes the 1% rule (' + fmtPct(onePercent, 2) + ')' }); }
+  else if (onePercent >= 0.8) { score += 8; checks.push({ pass: false, text: 'Close to 1% rule (' + fmtPct(onePercent, 2) + ')' }); }
+  else { checks.push({ pass: false, text: 'Fails the 1% rule (' + fmtPct(onePercent, 2) + ')' }); }
+
+  // DSCR > 1.25
+  if (dscr >= 1.5) { score += 15; checks.push({ pass: true, text: 'Excellent debt coverage (DSCR ' + dscr.toFixed(2) + ')' }); }
+  else if (dscr >= 1.25) { score += 10; checks.push({ pass: true, text: 'Good debt coverage (DSCR ' + dscr.toFixed(2) + ')' }); }
+  else if (dscr >= 1.0) { score += 3; checks.push({ pass: false, text: 'Thin debt coverage (DSCR ' + dscr.toFixed(2) + ')' }); }
+  else { checks.push({ pass: false, text: 'Insufficient debt coverage (DSCR ' + dscr.toFixed(2) + ')' }); }
+
+  // Total ROI vs S&P
+  if (totalROI >= 15) { score += 10; checks.push({ pass: true, text: 'Total ROI beats stock market (' + fmtPct(totalROI) + ' vs ~10%)' }); }
+  else if (totalROI >= 10) { score += 5; checks.push({ pass: true, text: 'Total ROI competitive with stocks (' + fmtPct(totalROI) + ')' }); }
+  else { checks.push({ pass: false, text: 'Total ROI below stock market average (' + fmtPct(totalROI) + ' vs ~10%)' }); }
+
+  let grade, gradeClass, gradeLabel;
+  if (score >= 80) { grade = 'A'; gradeClass = 'grade-a'; gradeLabel = 'Excellent Investment'; }
+  else if (score >= 60) { grade = 'B'; gradeClass = 'grade-b'; gradeLabel = 'Good Investment'; }
+  else if (score >= 40) { grade = 'C'; gradeClass = 'grade-c'; gradeLabel = 'Average / Marginal'; }
+  else if (score >= 20) { grade = 'D'; gradeClass = 'grade-d'; gradeLabel = 'Below Average'; }
+  else { grade = 'F'; gradeClass = 'grade-f'; gradeLabel = 'Poor Investment'; }
+
+  const sc = $('scoreCard');
+  sc.className = 'score-card ' + gradeClass;
+  $('scoreLetter').textContent = grade;
+  $('scoreLabel').textContent = gradeLabel;
+  $('scoreSublabel').textContent = 'Score: ' + score + ' / 100';
+
+  const explanations = {
+    A: 'This property scores highly across all major investment criteria. It produces strong cash flow, has competitive returns vs. the stock market, and carries manageable risk. This could be a great addition to an investment portfolio.',
+    B: 'A solid investment opportunity. It performs well in most areas, though there may be one or two metrics that could be better. Overall, this property should generate positive returns over time.',
+    C: 'This property is borderline. While it may break even or produce modest returns, the risk-reward ratio is not compelling. Compare carefully against simply investing in an index fund (S&P 500 averages ~10%/year).',
+    D: 'This deal has significant red flags. The cash flow is likely thin or negative, and the returns don\'t justify the risk and effort of being a landlord. You\'d likely be better off in stocks or bonds.',
+    F: 'This property is not a viable investment at these numbers. You would lose money and be taking on significant risk. Consider negotiating a lower price or finding a different property.'
+  };
+
+  $('scoreExplanation').textContent = explanations[grade];
+  $('scoreChecklist').innerHTML = checks.map(c =>
+    `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:14px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${c.pass ? '#28cd41' : '#ff3b30'}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        ${c.pass ? '<polyline points="20 6 9 17 4 12"/>' : '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>'}
+      </svg>
+      <span>${c.text}</span>
+    </div>`
+  ).join('');
+
+  // === METRICS GRID ===
+  function metricHighlight(val, goodMin, warnMin) {
+    if (val >= goodMin) return 'highlight-green';
+    if (val >= warnMin) return 'highlight-orange';
+    return 'highlight-red';
+  }
+
+  const paybackYears = annualCashFlow > 0 ? totalCashInvested / annualCashFlow : Infinity;
+
+  $('metricsGrid').innerHTML = `
+    <div class="metric-box" style="border: 1.5px solid #1d1d1f; background: #f5f5f7;">
+      <div class="metric-value" style="color: #1d1d1f;">${fmtD(totalCashInvested)}</div>
+      <div class="metric-label">Total Cash Needed</div>
+      <div class="metric-explain">Down payment (${fmtD(downPayment)}) + closing costs (${fmtD(closingCosts)})</div>
+    </div>
+    <div class="metric-box ${monthlyCashFlow >= 200 ? 'highlight-green' : monthlyCashFlow >= 0 ? 'highlight-orange' : 'highlight-red'}">
+      <div class="metric-value">${monthlyCashFlow >= 0 ? '' : '-'}${fmtD(monthlyCashFlow)}</div>
+      <div class="metric-label">Monthly Cash Flow</div>
+      <div class="metric-explain">Income minus ALL expenses including mortgage</div>
+    </div>
+    <div class="metric-box ${paybackYears <= 10 ? 'highlight-green' : paybackYears <= 20 ? 'highlight-orange' : 'highlight-red'}">
+      <div class="metric-value">${paybackYears === Infinity ? 'NEVER' : paybackYears.toFixed(1) + ' yrs'}</div>
+      <div class="metric-label">Payback Period</div>
+      <div class="metric-explain">Years to recoup your ${fmtD(totalCashInvested)} investment from cash flow</div>
+    </div>
+    <div class="metric-box ${metricHighlight(cocReturn, 8, 4)}">
+      <div class="metric-value">${fmtPct(cocReturn)}</div>
+      <div class="metric-label">Cash-on-Cash Return</div>
+      <div class="metric-explain">Annual cash flow / your cash invested. Above 8% is good.</div>
+    </div>
+    <div class="metric-box ${metricHighlight(capRate, 5, 3)}">
+      <div class="metric-value">${fmtPct(capRate)}</div>
+      <div class="metric-label">Cap Rate</div>
+      <div class="metric-explain">NOI / Price. What you'd earn if you paid all cash.</div>
+    </div>
+    <div class="metric-box ${metricHighlight(totalROI, 12, 6)}">
+      <div class="metric-value">${fmtPct(totalROI)}</div>
+      <div class="metric-label">Total Year 1 ROI</div>
+      <div class="metric-explain">Cash flow + appreciation + equity paydown</div>
+    </div>
+    <div class="metric-box ${metricHighlight(dscr, 1.25, 1.0)}">
+      <div class="metric-value">${dscr === Infinity ? 'N/A' : dscr.toFixed(2)}</div>
+      <div class="metric-label">DSCR</div>
+      <div class="metric-explain">Debt Service Coverage. Banks want 1.25+</div>
+    </div>
+    <div class="metric-box ${grm <= 15 ? 'highlight-green' : grm <= 20 ? 'highlight-orange' : 'highlight-red'}">
+      <div class="metric-value">${grm.toFixed(1)}</div>
+      <div class="metric-label">Gross Rent Multiplier</div>
+      <div class="metric-explain">Price / Annual Rent. Under 15 is strong.</div>
+    </div>
+    <div class="metric-box ${breakEven <= 85 ? 'highlight-green' : breakEven <= 100 ? 'highlight-orange' : 'highlight-red'}">
+      <div class="metric-value">${fmtPct(breakEven)}</div>
+      <div class="metric-label">Break-Even Ratio</div>
+      <div class="metric-explain">All costs / income. Under 85% is healthy.</div>
+    </div>
+  `;
+
+  // === CASH FLOW TABLE ===
+  const customExpRows = customExpenses.map(e => {
+    const val = parseFloat($(e.id).value) || 0;
+    return `<tr><td class="expense">${e.name}</td><td class="expense">-${fmtD(val)}</td></tr>`;
+  }).join('');
+
+  $('cashflowTable').innerHTML = `
+    <thead><tr><th>Item</th><th>Monthly</th></tr></thead>
+    <tbody>
+      <tr><td class="income">Gross Rental Income</td><td class="income">+${fmtD(grossMonthlyRent)}</td></tr>
+      <tr><td class="expense">Vacancy Loss (${vacancyPct}%)</td><td class="expense">-${fmtD(vacancyLoss)}</td></tr>
+      <tr class="subtotal-row"><td>Effective Rental Income</td><td>${fmtD(effectiveRent)}</td></tr>
+      <tr><td colspan="2" style="font-weight:600;padding-top:16px;color:var(--text2);">Operating Expenses</td></tr>
+      <tr><td class="expense">Property Tax</td><td class="expense">-${fmtD(monthlyTax)}</td></tr>
+      <tr><td class="expense">Insurance</td><td class="expense">-${fmtD(monthlyIns)}</td></tr>
+      <tr><td class="expense">HOA / Condo Fees</td><td class="expense">-${fmtD(hoa)}</td></tr>
+      <tr><td class="expense">Property Management</td><td class="expense">-${fmtD(management)}</td></tr>
+      <tr><td class="expense">Repairs & Maintenance</td><td class="expense">-${fmtD(repairs)}</td></tr>
+      <tr><td class="expense">CapEx Reserve</td><td class="expense">-${fmtD(capex)}</td></tr>
+      <tr><td class="expense">Utilities</td><td class="expense">-${fmtD(utilities)}</td></tr>
+      <tr><td class="expense">Lawn / Snow / Pest</td><td class="expense">-${fmtD(lawn)}</td></tr>
+      ${customExpRows}
+      <tr class="subtotal-row"><td>Total Operating Expenses</td><td class="expense">-${fmtD(totalMonthlyExpenses)}</td></tr>
+      <tr class="subtotal-row"><td>Net Operating Income (NOI)</td><td style="color:${noi_monthly >= 0 ? '#1a8a2c' : '#cc2f26'};font-weight:700;">${noi_monthly >= 0 ? '+' : '-'}${fmtD(noi_monthly)}</td></tr>
+      <tr><td colspan="2" style="font-weight:600;padding-top:16px;color:var(--text2);">Debt Service</td></tr>
+      <tr><td class="expense">Mortgage Payment (P&I)</td><td class="expense">-${fmtD(monthlyMortgage)}</td></tr>
+      <tr class="total-row"><td>Net Monthly Cash Flow</td><td style="color:${monthlyCashFlow >= 0 ? '#1a8a2c' : '#cc2f26'};">${monthlyCashFlow >= 0 ? '+' : '-'}${fmtD(monthlyCashFlow)}</td></tr>
+      <tr><td style="color:var(--text2);">Annual Cash Flow</td><td style="color:${annualCashFlow >= 0 ? '#1a8a2c' : '#cc2f26'};font-weight:600;">${annualCashFlow >= 0 ? '+' : '-'}${fmtD(annualCashFlow)}/yr</td></tr>
+    </tbody>
+  `;
+
+  // === COMPARISON TAB ===
+  const sp500 = 10; // historical avg
+  const bonds = 5;
+  const hySavings = 4.5;
+  const reit = 8;
+  const maxReturn = Math.max(totalROI, sp500, bonds, hySavings, reit, 1);
+  const barScale = 90 / maxReturn;
+
+  function compBar(label, value, color, desc) {
+    const w = Math.max(value * barScale, 2);
+    return `
+    <div class="comparison-bar-wrap">
+      <div class="comparison-label-row">
+        <span>${label}</span>
+        <span style="color:${color};font-weight:700;">${fmtPct(value)}</span>
+      </div>
+      <div class="comparison-bar">
+        <div class="comparison-fill" style="width:${w}%;background:${color};">${fmtPct(value)}</div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:2px;">${desc}</div>
+    </div>`;
+  }
+
+  const propertyColor = totalROI >= sp500 ? '#28cd41' : totalROI >= bonds ? '#ff9500' : '#ff3b30';
+
+  $('comparisonContent').innerHTML = `
+    <h3 style="margin-bottom:16px;">How does this property compare to other investments?</h3>
+    <p style="font-size:14px;color:#666;margin-bottom:20px;">
+      Total Year 1 return includes cash flow, estimated appreciation (${fmtPct(appreciation)}), and mortgage principal paydown.
+      Other investments shown at historical averages for reference.
+    </p>
+    ${compBar('This Property (Total ROI)', totalROI, propertyColor, 'Cash flow + appreciation + equity buildup')}
+    ${compBar('S&P 500 Index Fund', sp500, '#5856d6', 'Historical average ~10%/yr, completely passive, highly liquid')}
+    ${compBar('REITs (Real Estate Funds)', reit, '#af52de', 'Real estate exposure without landlord duties, ~8%/yr avg')}
+    ${compBar('Bond Index Fund', bonds, '#0071e3', 'Lower risk, steady income, ~5%/yr')}
+    ${compBar('High-Yield Savings', hySavings, '#8e8e93', 'No risk, fully liquid, current rates ~4.5%')}
+
+    <div class="learn-box" style="margin-top:24px;">
+      <strong>Important context:</strong> Real estate returns include leveraged gains (you control a ${fmtD(pp)} asset with ${fmtD(totalCashInvested)} cash).
+      This amplifies returns AND losses. Stock returns shown are unleveraged.
+      Real estate also requires active management time, has illiquidity risk, and carries
+      maintenance surprises. A "fair" comparison would account for your time as a cost.
+    </div>
+  `;
+
+  // === AMORTIZATION TAB ===
+  if (mortgage.schedule.length > 0) {
+    // Yearly summaries
+    const yearly = [];
+    for (let y = 0; y < term; y++) {
+      const start = y * 12;
+      const end = Math.min(start + 12, mortgage.schedule.length);
+      let yPrincipal = 0, yInterest = 0;
+      for (let m = start; m < end; m++) {
+        yPrincipal += mortgage.schedule[m].principal;
+        yInterest += mortgage.schedule[m].interest;
+      }
+      yearly.push({ year: y + 1, principal: yPrincipal, interest: yInterest, balance: mortgage.schedule[end - 1].balance });
+    }
+
+    const maxPayment = yearly[0].principal + yearly[0].interest;
+    const barChartHTML = yearly.map((y, i) => {
+      const pH = (y.principal / (monthlyMortgage * 12)) * 100;
+      const iH = (y.interest / (monthlyMortgage * 12)) * 100;
+      return `<div class="bar" title="Year ${y.year}: Principal ${fmtD(y.principal)}, Interest ${fmtD(y.interest)}" style="display:flex;flex-direction:column;justify-content:flex-end;">
+        <div style="background:#ff9500;height:${iH}%;border-radius:3px 3px 0 0;"></div>
+        <div style="background:#0071e3;height:${pH}%;"></div>
+      </div>`;
+    }).join('');
+
+    let amortTableRows = '';
+    [0, 4, 9, 14, 19, 24, 29].forEach(i => {
+      if (i < yearly.length) {
+        const y = yearly[i];
+        const equity = pp - y.balance;
+        amortTableRows += `<tr>
+          <td>Year ${y.year}</td>
+          <td>${fmtD(y.principal)}</td>
+          <td>${fmtD(y.interest)}</td>
+          <td>${fmtD(y.balance)}</td>
+          <td style="font-weight:600;">${fmtD(equity)} (${fmtPct(equity/pp*100)})</td>
+        </tr>`;
+      }
+    });
+
+    $('amortContent').innerHTML = `
+      <h3 style="margin-bottom:4px;">Loan: ${fmtD(loanAmount)} at ${fmtPct(rate)} for ${term} years</h3>
+      <p style="font-size:14px;color:#666;margin-bottom:16px;">
+        Monthly P&I: <strong>${fmtD(monthlyMortgage)}</strong> | Total interest over life of loan: <strong>${fmtD(mortgage.totalInterest)}</strong>
+      </p>
+      <div class="bar-chart">${barChartHTML}</div>
+      <div class="chart-legend">
+        <span><span class="legend-dot" style="background:#0071e3;"></span> Principal</span>
+        <span><span class="legend-dot" style="background:#ff9500;"></span> Interest</span>
+      </div>
+      <p style="font-size:12px;color:var(--text2);margin-top:4px;">Each bar = 1 year. Early years are mostly interest; later years are mostly principal.</p>
+      <table class="cf-table" style="margin-top:20px;">
+        <thead><tr><th>Year</th><th>Principal Paid</th><th>Interest Paid</th><th>Remaining Balance</th><th>Equity</th></tr></thead>
+        <tbody>${amortTableRows}</tbody>
+      </table>
+    `;
+  } else {
+    $('amortContent').innerHTML = '<p>No mortgage (all-cash purchase).</p>';
+  }
+
+  // === 10-YEAR PROJECTION ===
+  let projHTML = `<h3 style="margin-bottom:16px;">10-Year Wealth Projection</h3>
+    <p style="font-size:14px;color:#666;margin-bottom:20px;">Assuming ${fmtPct(appreciation)} annual appreciation and 2% annual rent increases.</p>
+    <table class="cf-table">
+    <thead><tr><th>Year</th><th>Property Value</th><th>Loan Balance</th><th>Equity</th><th>Annual Cash Flow</th><th>Cumulative Profit</th></tr></thead><tbody>`;
+
+  let cumCashFlow = 0;
+  let currentRent = rent;
+  let currentValue = pp;
+  for (let y = 1; y <= 10; y++) {
+    currentValue *= (1 + appreciation / 100);
+    currentRent *= 1.02;
+    const yearlyEffRent = currentRent * 12 * (1 - vacancyPct / 100);
+    // Approximate expenses growing 2%/yr
+    const yearlyExpenses = totalMonthlyExpenses * 12 * Math.pow(1.02, y - 1);
+    const yearlyNOI = yearlyEffRent - yearlyExpenses;
+    const yearlyDebt = monthlyMortgage * 12;
+    const yearlyCF = yearlyNOI - yearlyDebt;
+    cumCashFlow += yearlyCF;
+    const loanBal = mortgage.schedule.length > 0 ? (y * 12 <= mortgage.schedule.length ? mortgage.schedule[y * 12 - 1].balance : 0) : 0;
+    const equity = currentValue - loanBal;
+    const totalProfit = equity - totalCashInvested + cumCashFlow;
+
+    projHTML += `<tr>
+      <td>Year ${y}</td>
+      <td>${fmtD(currentValue)}</td>
+      <td>${fmtD(loanBal)}</td>
+      <td style="font-weight:600;">${fmtD(equity)}</td>
+      <td style="color:${yearlyCF >= 0 ? '#1a8a2c' : '#cc2f26'};">${yearlyCF >= 0 ? '+' : '-'}${fmtD(yearlyCF)}</td>
+      <td style="color:${totalProfit >= 0 ? '#1a8a2c' : '#cc2f26'};font-weight:600;">${totalProfit >= 0 ? '+' : '-'}${fmtD(totalProfit)}</td>
+    </tr>`;
+  }
+
+  // Compare to stocks
+  let stockValue = totalCashInvested;
+  for (let y = 0; y < 10; y++) stockValue *= 1.10;
+  const stockProfit = stockValue - totalCashInvested;
+  const currentEquity10 = currentValue - (mortgage.schedule.length >= 120 ? mortgage.schedule[119].balance : 0);
+  const reTotalProfit = currentEquity10 - totalCashInvested + cumCashFlow;
+
+  projHTML += `</tbody></table>
+    <div class="grid" style="gap:16px;margin-top:24px;">
+      <div class="metric-box ${reTotalProfit > stockProfit ? 'highlight-green' : 'highlight-orange'}">
+        <div class="metric-value">${fmtD(reTotalProfit)}</div>
+        <div class="metric-label">This Property (10yr total profit)</div>
+        <div class="metric-explain">Equity gain + cumulative cash flow - initial investment</div>
+      </div>
+      <div class="metric-box" style="border: 1.5px solid #5856d6; background: #f0efff;">
+        <div class="metric-value" style="color:#5856d6;">${fmtD(stockProfit)}</div>
+        <div class="metric-label">S&P 500 Index Fund (10yr)</div>
+        <div class="metric-explain">Same ${fmtD(totalCashInvested)} invested at 10% avg annual return</div>
+      </div>
+    </div>`;
+
+  $('longtermContent').innerHTML = projHTML;
+}
+
+// Run on load with defaults
+updateHints();
+</script>
+</body>
+</html>
