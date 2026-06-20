@@ -1,0 +1,3010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Los Gatos Residential Construction Project</title>
+<style>
+  :root {
+    --blue: #0071e3;
+    --blue-2: #2997ff;
+    --green: #28cd41;
+    --red: #ff3b30;
+    --orange: #ff9500;
+    --purple: #af52de;
+    --teal: #59adc4;
+    --indigo: #5856d6;
+    --yellow: #ffcc00;
+    --text: #1d1d1f;
+    --text2: #6e6e73;
+    --text3: #86868b;
+    --border: #d2d2d7;
+    --border-2: #e5e5ea;
+    --bg: #f5f5f7;
+    --card: #ffffff;
+    --radius: 14px;
+    --radius-sm: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 28px rgba(0,0,0,0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  /* ===== Top nav ===== */
+  .topnav {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topnav-inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 15px;
+  }
+  .brand-mark {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-2));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .topnav-meta {
+    color: var(--text3); font-size: 13px;
+  }
+
+  /* ===== Section dropdown (in topnav) ===== */
+  .section-dropdown {
+    position: relative;
+    display: flex; align-items: center;
+  }
+  .section-trigger {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 12px 8px 14px;
+    background: rgba(0,0,0,0.04);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s;
+    min-width: 180px;
+    justify-content: space-between;
+  }
+  .section-trigger:hover { background: rgba(0,0,0,0.06); }
+  .section-trigger.open  { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .section-trigger.open .chev,
+  .section-trigger.open .section-trigger-icon { stroke: #fff; }
+  .section-trigger-left {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .chev {
+    transition: transform 0.18s;
+  }
+  .section-trigger.open .chev { transform: rotate(180deg); }
+
+  .section-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 260px;
+    background: var(--card);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    padding: 6px;
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  .section-menu.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .section-menu-item {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s;
+  }
+  .section-menu-item:hover { background: rgba(0,0,0,0.04); }
+  .section-menu-item.active { background: rgba(0,113,227,0.10); color: var(--blue); font-weight: 600; }
+  .section-menu-item.active svg { stroke: var(--blue); }
+  .section-menu-item .item-icon-wrap {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: rgba(0,113,227,0.08);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--blue);
+  }
+  .section-menu-item.active .item-icon-wrap {
+    background: var(--blue);
+  }
+  .section-menu-item.active .item-icon-wrap svg { stroke: #fff; }
+  .section-menu-item-label {
+    display: flex; flex-direction: column; gap: 1px;
+  }
+  .section-menu-item-sub {
+    font-size: 11px; color: var(--text3); font-weight: 500;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 32px;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px;
+    border: 1px solid var(--border-2);
+    margin-bottom: 7px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: 32px; font-weight: 700; letter-spacing: -0.02em;
+    margin: 0 0 8px 0;
+  }
+  .hero-sub {
+    font-size: 15px; color: var(--text2); margin: 0 0 20px 0;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 20px;
+  }
+  .stat {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--text2);
+  }
+  .stat-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: rgba(0,113,227,0.10);
+    color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .stat-val { color: var(--text); font-weight: 600; }
+
+  .hero-total {
+    background: linear-gradient(135deg, #f5f5f7, #ffffff);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .hero-total-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text3); font-weight: 600; margin-bottom: 6px;
+  }
+  .hero-total-value {
+    font-size: 40px; font-weight: 700; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 8px;
+  }
+  .hero-target-row {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px; color: var(--text2);
+    border-top: 1px solid var(--border-2); padding-top: 12px; margin-top: 4px;
+  }
+  .delta-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 600;
+    padding: 3px 9px; border-radius: 999px;
+  }
+  .delta-pill.over { background: rgba(255,59,48,0.12); color: var(--red); }
+  .delta-pill.under { background: rgba(40,205,65,0.14); color: #1f9b34; }
+
+  /* ===== Tab content (driven by dropdown) ===== */
+  .tab-content { display: none; animation: fadeIn 0.22s ease; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  /* ===== Card / section ===== */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 5px;
+  }
+  .card-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .card-icon {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--blue), var(--blue-2));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-icon svg { stroke: #fff; }
+  .card-icon.purple { background: linear-gradient(135deg, var(--purple), #d57aff); }
+  .card-icon.orange { background: linear-gradient(135deg, var(--orange), var(--yellow)); }
+  .card-icon.green  { background: linear-gradient(135deg, var(--green),  #5be37b); }
+  .card-icon.teal   { background: linear-gradient(135deg, var(--teal),   #7fcedf); }
+  .card-icon.red    { background: linear-gradient(135deg, var(--red),    #ff7a73); }
+  .card-icon.indigo { background: linear-gradient(135deg, var(--indigo), #8a88e0); }
+  .card-icon.gray   { background: linear-gradient(135deg, #8e8e93, #b0b0b5); }
+  .card-title {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .card-subtitle {
+    font-size: 13px; color: var(--text2);
+    margin-top: 2px;
+  }
+
+  /* ===== Inputs ===== */
+  input[type="number"], input[type="text"] {
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    transition: border-color 0.18s, box-shadow 0.18s;
+    width: 100%;
+  }
+  input[type="number"]:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.12);
+  }
+  label {
+    display: block;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--text3);
+    margin-bottom: 6px;
+  }
+  .input-row {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .btn {
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.18s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .btn:hover { background: var(--bg); border-color: #b8b8bf; }
+  .btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .btn-primary:hover { background: #005fc1; border-color: #005fc1; }
+  .btn-ghost { border: none; background: transparent; color: var(--blue); padding: 6px 8px; }
+  .btn-ghost:hover { background: rgba(0,113,227,0.08); }
+  .btn-icon { padding: 6px; width: 28px; height: 28px; justify-content: center; }
+
+  /* ===== Timeline ===== */
+  .gantt-wrap {
+    overflow-x: auto;
+    margin-top: 8px;
+  }
+  .gantt {
+    min-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .gantt-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    transition: background 0.15s, opacity 0.15s;
+  }
+  .gantt-row.dragging {
+    opacity: 0.4;
+  }
+  .gantt-row.drop-above {
+    box-shadow: inset 0 2px 0 var(--blue);
+  }
+  .gantt-row.drop-below {
+    box-shadow: inset 0 -2px 0 var(--blue);
+  }
+  .gantt-month-head {
+    display: grid;
+    grid-template-columns: repeat(28, 1fr);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+  .gantt-month-cell {
+    font-size: 10px;
+    color: var(--text3);
+    text-align: center;
+    border-left: 1px solid var(--border-2);
+    padding: 0 2px;
+    font-weight: 600;
+  }
+  .gantt-month-cell:first-child { border-left: none; }
+  .gantt-quarter {
+    background: rgba(0,113,227,0.05);
+  }
+
+  .gantt-label {
+    padding: 8px 12px 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .gantt-label-num {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--bg); color: var(--text3);
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .gantt-label-name { flex: 1; min-width: 0; }
+  .gantt-label-name input {
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    background: #fff;
+  }
+  .gantt-track {
+    position: relative;
+    height: 38px;
+    border-bottom: 1px solid var(--border-2);
+    background-image: linear-gradient(to right,
+      var(--border-2) 1px, transparent 1px);
+    background-size: calc(100% / 28) 100%;
+  }
+  .gantt-bar {
+    position: absolute;
+    top: 7px; bottom: 7px;
+    border-radius: 6px;
+    display: flex; align-items: center;
+    padding: 0 8px;
+    font-size: 11px; font-weight: 600;
+    color: #fff;
+    cursor: default;
+    transition: filter 0.18s, transform 0.18s, box-shadow 0.18s;
+    overflow: hidden;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.10);
+    user-select: none;
+  }
+  .gantt-bar:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 2;
+  }
+  .gantt-bar.cat-design   { background: linear-gradient(135deg, var(--purple), #d57aff); }
+  .gantt-bar.cat-permit   { background: linear-gradient(135deg, var(--orange), var(--yellow)); }
+  .gantt-bar.cat-site     { background: linear-gradient(135deg, var(--blue), var(--blue-2)); }
+  .gantt-bar.cat-shell    { background: linear-gradient(135deg, var(--indigo), #8a88e0); }
+  .gantt-bar.cat-mep      { background: linear-gradient(135deg, var(--teal), #7fcedf); }
+  .gantt-bar.cat-finish   { background: linear-gradient(135deg, var(--green), #5be37b); }
+  .gantt-bar.cat-landscape{ background: linear-gradient(135deg, #2da44e, #4cc270); }
+  .gantt-bar.cat-closeout { background: linear-gradient(135deg, #8e8e93, #b0b0b5); }
+
+  /* ===== Timeline edit mode ===== */
+  .gantt.edit-mode .gantt-bar { cursor: grab; }
+  .gantt.edit-mode .gantt-bar.dragging-bar { cursor: grabbing; transition: none; transform: none; }
+  .gantt.edit-mode .gantt-bar:hover { transform: none; }
+  .resize-handle {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 8px;
+    cursor: ew-resize;
+    background: rgba(255,255,255,0.001);
+  }
+  .resize-handle.left  { left: 0; border-radius: 6px 0 0 6px; }
+  .resize-handle.right { right: 0; border-radius: 0 6px 6px 0; }
+  .resize-handle:hover {
+    background: rgba(255,255,255,0.30);
+  }
+  .gantt:not(.edit-mode) .resize-handle { display: none; }
+
+  .row-handle {
+    width: 18px; height: 18px;
+    margin-right: 4px;
+    color: var(--text3);
+    cursor: grab;
+    display: none;
+    align-items: center; justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .gantt.edit-mode .row-handle { display: inline-flex; }
+  .gantt.edit-mode .row-handle:hover { background: var(--bg); color: var(--text); }
+  .gantt.edit-mode .row-handle:active { cursor: grabbing; }
+
+  .row-delete {
+    margin-left: auto;
+    padding: 4px;
+    border: none;
+    background: transparent;
+    color: var(--red);
+    cursor: pointer;
+    border-radius: 4px;
+    display: none;
+    align-items: center; justify-content: center;
+  }
+  .gantt.edit-mode .row-delete { display: inline-flex; }
+  .row-delete:hover { background: rgba(255,59,48,0.10); }
+
+  .gantt-add-row {
+    display: none;
+    padding: 12px;
+    margin-top: 8px;
+    width: 100%;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--blue);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    align-items: center; justify-content: center; gap: 6px;
+  }
+  .gantt-add-row:hover { background: rgba(0,113,227,0.05); border-color: var(--blue); }
+  .gantt.edit-mode ~ .gantt-add-row,
+  .gantt-add-row.show { display: flex; }
+
+  .timeline-edit-toolbar {
+    display: flex; align-items: center; gap: 8px;
+    margin-left: auto;
+  }
+  .cat-select {
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    display: none;
+  }
+  .gantt.edit-mode .cat-select { display: inline-block; }
+  .gantt-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%; transform: translateX(-50%);
+    background: rgba(29,29,31,0.96);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s;
+    z-index: 5;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.20);
+  }
+  .gantt-bar:hover .gantt-tooltip { opacity: 1; }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .legend-dot {
+    display: inline-block;
+    width: 10px; height: 10px; border-radius: 3px;
+    margin-right: 6px; vertical-align: -1px;
+  }
+
+  /* ===== Tables ===== */
+  .budget-section { margin-bottom: 18px; }
+  .budget-section-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 4px;
+    border-bottom: 2px solid var(--border-2);
+  }
+  .budget-section-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; font-weight: 600;
+  }
+  .budget-section-total {
+    font-size: 15px; font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .budget-row {
+    display: grid;
+    grid-template-columns: 2.4fr 1fr 1fr 2fr 32px 32px 32px;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border-2);
+    font-size: 13px;
+  }
+  .budget-row:last-child { border-bottom: none; }
+  .budget-row.locked {
+    background: rgba(0,0,0,0.015);
+  }
+  .budget-row.child-row {
+    background: rgba(0,113,227,0.025);
+    border-bottom: 1px solid var(--border-2);
+    padding-left: 18px;
+    border-left: 2px solid rgba(0,113,227,0.20);
+    margin-left: 14px;
+  }
+  .budget-row.child-row.locked {
+    background: rgba(0,113,227,0.045);
+  }
+  .child-row .child-marker {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 14px; height: 14px;
+    color: var(--blue);
+    margin-right: 4px;
+    flex-shrink: 0;
+    opacity: 0.65;
+  }
+  .child-row .row-name-wrap {
+    display: flex; align-items: center; gap: 0;
+    min-width: 0;
+  }
+  .child-row .row-name-wrap input,
+  .child-row .row-name-wrap .locked-cell { flex: 1; min-width: 0; }
+  .add-child-btn svg { stroke: var(--text3); }
+  .add-child-btn:hover svg { stroke: var(--blue); }
+  .locked-cell {
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .locked-cell.numeric {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .locked-cell.muted {
+    color: var(--text2);
+  }
+  .lock-btn.locked-on svg { stroke: var(--blue); }
+  .btn-icon[disabled] {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .budget-head {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text3);
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border);
+  }
+  .budget-row input.numeric-input {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  input.numeric-input {
+    font-variant-numeric: tabular-nums;
+  }
+  .add-row-btn {
+    margin-top: 8px;
+    color: var(--blue);
+    font-size: 13px; font-weight: 600;
+    background: none; border: 1px dashed var(--border);
+    padding: 8px 12px; border-radius: 8px;
+    cursor: pointer; font-family: inherit;
+    width: 100%;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .add-row-btn:hover { background: rgba(0,113,227,0.05); border-color: var(--blue); }
+
+  /* ===== Metric tiles ===== */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .metric-tile {
+    background: var(--bg);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+  }
+  .metric-tile.flag-good { background: rgba(40,205,65,0.08); border-color: rgba(40,205,65,0.30); }
+  .metric-tile.flag-warn { background: rgba(255,149,0,0.08); border-color: rgba(255,149,0,0.30); }
+  .metric-tile.flag-bad  { background: rgba(255,59,48,0.08); border-color: rgba(255,59,48,0.30); }
+  .metric-label {
+    font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text3); margin-bottom: 4px;
+  }
+  .metric-value {
+    font-size: 22px; font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .metric-sub {
+    font-size: 12px; color: var(--text2); margin-top: 2px;
+  }
+
+  /* ===== Two-column generic ===== */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  /* ===== Misc ===== */
+  .callout {
+    background: rgba(0,113,227,0.06);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .callout.warn { background: rgba(255,149,0,0.08); border-left-color: var(--orange); }
+  .callout-title { font-weight: 600; margin-bottom: 4px; }
+  .callout ul { margin: 6px 0 0 18px; padding: 0; }
+  .callout li { margin-bottom: 3px; color: var(--text2); }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .data-table th, .data-table td {
+    padding: 8px 10px;
+    text-align: right;
+    border-bottom: 1px solid var(--border-2);
+  }
+  .data-table th:first-child, .data-table td:first-child { text-align: left; }
+  .data-table th {
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text3);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr.highlight td { background: rgba(0,113,227,0.05); font-weight: 600; }
+
+  .footer {
+    text-align: center;
+    color: var(--text3);
+    font-size: 12px;
+    padding: 28px 16px 40px;
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .container { padding: 18px; }
+    .topnav-meta { display: none; }
+    .section-trigger { min-width: 140px; font-size: 13px; }
+    .budget-row { grid-template-columns: 1.6fr 90px 32px 32px 32px; }
+    .budget-row .col-actual, .budget-row .col-notes { display: none; }
+  }
+
+  @media print {
+    .topnav { display: none; }
+    .tab-content { display: block !important; page-break-before: always; }
+    .tab-content:first-of-type { page-break-before: auto; }
+    .card { box-shadow: none; border: 1px solid #ccc; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+          <path d="M3 9.5L12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10"/><path d="M9 21v-6h6v6"/>
+        </svg>
+      </div>
+      <span>Los Gatos Residence</span>
+    </div>
+
+    <div class="section-dropdown" id="sectionDropdown"></div>
+
+    <div class="topnav-meta" id="topnavMeta">East Los Gatos, CA &middot; HR1 hillside</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Hero -->
+  <section class="hero" id="hero"></section>
+
+  <!-- Tab contents -->
+  <section class="tab-content active" id="tab-timeline"></section>
+  <section class="tab-content"        id="tab-budget"></section>
+  <section class="tab-content"        id="tab-financing"></section>
+  <section class="tab-content"        id="tab-assets"></section>
+
+</main>
+
+<footer class="footer">
+  Single-family residence + ADU project plan &middot; All figures are working estimates &middot; Updated as bids return
+</footer>
+
+<script>
+/* ============================================================
+   Base utilities
+   ============================================================ */
+const STORAGE_KEY = 'losGatos.project.v1';
+const TARGET_BUDGET = 2_500_000;
+const LAND_COST = 835_000;
+const LAND_MORTGAGE = 450_000;
+
+/** SVG icon factory — stroke-based, SF-Symbols-inspired. */
+function svgIcon(path, opts = {}) {
+  const w = opts.size || 18;
+  const stroke = opts.stroke || 'currentColor';
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="${w}" height="${w}">${path}</svg>`;
+}
+const ICONS = {
+  home:     '<path d="M3 9.5L12 3l9 6.5"/><path d="M5 10v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V10"/><path d="M9 21v-6h6v6"/>',
+  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  dollar:   '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+  bank:     '<line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7 12 2"/>',
+  layers:   '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+  plus:     '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+  trash:    '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/>',
+  ruler:    '<path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/>',
+  hammer:   '<path d="M14 4l6 6"/><path d="M16 6l-9 9-3-3 9-9"/><path d="M11 11l9 9"/>',
+  trees:    '<path d="M12 2L8 8h3v5H7l-3 4h16l-3-4h-4V8h3z"/><line x1="12" y1="17" x2="12" y2="22"/>',
+  flag:     '<path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/>',
+  check:    '<polyline points="20 6 9 17 4 12"/>',
+  alert:    '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  clock:    '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  wallet:   '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h3v-4z"/>',
+  trending: '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+  pin:      '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  sun:      '<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>',
+  drop:     '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',
+  zap:      '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+  edit:     '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+  scale:    '<line x1="12" y1="3" x2="12" y2="21"/><path d="M5 7h14"/><path d="M5 7l-3 6c0 1.66 1.34 3 3 3s3-1.34 3-3l-3-6z"/><path d="M19 7l-3 6c0 1.66 1.34 3 3 3s3-1.34 3-3l-3-6z"/>',
+  lock:     '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  unlock:   '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>'
+};
+
+function fmtCurrency(v, opts = {}) {
+  const n = Number(v) || 0;
+  if (opts.short && Math.abs(n) >= 1000) {
+    if (Math.abs(n) >= 1_000_000) return '$' + (n / 1_000_000).toFixed(2) + 'M';
+    return '$' + (n / 1000).toFixed(0) + 'k';
+  }
+  return n.toLocaleString('en-US', {
+    style: 'currency', currency: 'USD',
+    minimumFractionDigits: opts.cents ? 2 : 0,
+    maximumFractionDigits: opts.cents ? 2 : 0
+  });
+}
+function fmtPct(v, digits = 1) {
+  return (Number(v) || 0).toFixed(digits) + '%';
+}
+function num(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  const v = parseNumericInput(el.value);
+  return isNaN(v) ? 0 : v;
+}
+
+/* ============================================================
+   Numeric input formatting (thousands commas on blur)
+   ============================================================ */
+function parseNumericInput(v) {
+  if (v == null || v === '') return NaN;
+  return parseFloat(String(v).replace(/,/g, ''));
+}
+function formatNumber(v) {
+  if (v === '' || v == null) return '';
+  const n = Number(String(v).replace(/,/g, ''));
+  if (isNaN(n)) return '';
+  return n.toLocaleString('en-US', { maximumFractionDigits: 4 });
+}
+/** Apply comma formatting to all .numeric-input descendants of root. */
+function formatNumericInputsIn(root) {
+  if (!root) return;
+  root.querySelectorAll('input.numeric-input').forEach(inp => {
+    if (document.activeElement === inp) return; // skip the one being edited
+    if (inp.value === '') return;
+    inp.value = formatNumber(inp.value);
+  });
+}
+/** Wire global focus/blur once: strip commas on focus, re-add on blur. */
+function bindNumericInputFormatting() {
+  document.addEventListener('focusin', e => {
+    const t = e.target;
+    if (t && t.classList && t.classList.contains('numeric-input')) {
+      if (t.value !== '') t.value = String(t.value).replace(/,/g, '');
+    }
+  });
+  document.addEventListener('focusout', e => {
+    const t = e.target;
+    if (t && t.classList && t.classList.contains('numeric-input')) {
+      if (t.value !== '') t.value = formatNumber(t.value);
+    }
+  });
+}
+
+/** localStorage helpers — single namespaced key, JSON value. */
+const Store = {
+  data: {},
+  load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      this.data = raw ? JSON.parse(raw) : {};
+    } catch { this.data = {}; }
+    return this.data;
+  },
+  save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data)); } catch {}
+  },
+  get(path, fallback) {
+    const parts = path.split('.');
+    let cur = this.data;
+    for (const p of parts) {
+      if (cur == null) return fallback;
+      cur = cur[p];
+    }
+    return cur === undefined ? fallback : cur;
+  },
+  set(path, value) {
+    const parts = path.split('.');
+    let cur = this.data;
+    for (let i = 0; i < parts.length - 1; i++) {
+      if (cur[parts[i]] == null || typeof cur[parts[i]] !== 'object') cur[parts[i]] = {};
+      cur = cur[parts[i]];
+    }
+    cur[parts[parts.length - 1]] = value;
+    this.save();
+  }
+};
+
+/* ============================================================
+   Section dropdown (replaces tab bar)
+   ============================================================ */
+const TABS = [
+  { id: 'timeline',  label: 'Timeline',   sub: 'Roadmap & critical path',     icon: 'calendar' },
+  { id: 'budget',    label: 'Budget',     sub: 'Editable line items',         icon: 'dollar' },
+  { id: 'financing', label: 'Financing',  sub: 'Loan qualification & DTI',    icon: 'bank' },
+  { id: 'assets',    label: 'Assets',     sub: 'Equity & mortgage calculator', icon: 'trending' }
+];
+
+function renderSectionDropdown() {
+  const wrap = document.getElementById('sectionDropdown');
+  const initial = TABS[0];
+  wrap.innerHTML = `
+    <button class="section-trigger" id="sectionTrigger" aria-haspopup="menu" aria-expanded="false">
+      <span class="section-trigger-left">
+        <span class="section-trigger-icon" id="triggerIcon">${svgIcon(ICONS[initial.icon], { size: 16, stroke: 'var(--blue)' })}</span>
+        <span id="triggerLabel">${initial.label}</span>
+      </span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="section-menu" id="sectionMenu" role="menu">
+      ${TABS.map(t => `
+        <button class="section-menu-item ${t.id === initial.id ? 'active' : ''}" data-tab="${t.id}" role="menuitem">
+          <span class="item-icon-wrap">${svgIcon(ICONS[t.icon], { size: 14, stroke: 'currentColor' })}</span>
+          <span class="section-menu-item-label">
+            <span>${t.label}</span>
+            <span class="section-menu-item-sub">${t.sub}</span>
+          </span>
+        </button>
+      `).join('')}
+    </div>
+  `;
+
+  const trigger = document.getElementById('sectionTrigger');
+  const menu = document.getElementById('sectionMenu');
+
+  trigger.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = menu.classList.toggle('open');
+    trigger.classList.toggle('open', open);
+    trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  menu.querySelectorAll('.section-menu-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchTab(btn.dataset.tab);
+      closeSectionMenu();
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (!wrap.contains(e.target)) closeSectionMenu();
+  });
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSectionMenu();
+  });
+}
+
+function closeSectionMenu() {
+  const trigger = document.getElementById('sectionTrigger');
+  const menu = document.getElementById('sectionMenu');
+  if (!trigger || !menu) return;
+  menu.classList.remove('open');
+  trigger.classList.remove('open');
+  trigger.setAttribute('aria-expanded', 'false');
+}
+
+function switchTab(id) {
+  const tab = TABS.find(t => t.id === id);
+  if (!tab) return;
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+
+  // Update dropdown trigger label + icon
+  const tl = document.getElementById('triggerLabel');
+  const ti = document.getElementById('triggerIcon');
+  if (tl) tl.textContent = tab.label;
+  if (ti) ti.innerHTML = svgIcon(ICONS[tab.icon], { size: 16, stroke: 'currentColor' });
+
+  // Update menu active item
+  document.querySelectorAll('.section-menu-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === id);
+  });
+
+  Store.set('ui.activeTab', id);
+  // Scroll to top so user sees the new section
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   Cross-tab event bus (lightweight)
+   ============================================================ */
+const Bus = {
+  listeners: {},
+  on(evt, fn) { (this.listeners[evt] ||= []).push(fn); },
+  emit(evt, payload) { (this.listeners[evt] || []).forEach(fn => fn(payload)); }
+};
+
+/* ============================================================
+   Renderers — populated in subsequent steps
+   ============================================================ */
+function renderHero() {
+  const stats = [
+    { icon: 'pin',    label: 'Lot',         value: '1.28 ac &middot; HR1' },
+    { icon: 'ruler',  label: 'Avg slope',   value: '~20% (hillside)' },
+    { icon: 'alert',  label: 'Fault setbk', value: '50 ft on south' },
+    { icon: 'home',   label: 'Primary',     value: '6BR / 5BA &middot; 4,400 sf' },
+    { icon: 'layers', label: 'ADU',         value: '~1,000 sf' },
+    { icon: 'drop',   label: 'Wastewater',  value: 'Septic (sewer 1500 ft)' }
+  ];
+  const hero = document.getElementById('hero');
+  hero.innerHTML = `
+    <div class="hero-info">
+      <h1>Los Gatos Residence &amp; ADU</h1>
+      <p class="hero-sub">East Los Gatos, CA &middot; just south of Blossom Hill Road &middot; HR1 hillside lot</p>
+      <div class="stat-grid">
+        ${stats.map(s => `
+          <div class="stat">
+            <div class="stat-icon">${svgIcon(ICONS[s.icon], { size: 14 })}</div>
+            <div>
+              <div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">${s.label}</div>
+              <div class="stat-val">${s.value}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="hero-total">
+      <div class="hero-total-label">Total project cost</div>
+      <div class="hero-total-value" id="heroTotalValue">$0</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:10px;">
+        Construction budget (live from Budget tab)
+      </div>
+      <div class="hero-target-row">
+        <span>Target: ${fmtCurrency(TARGET_BUDGET, { short: true })} loan</span>
+        <span id="heroDeltaPill" class="delta-pill under">on target</span>
+      </div>
+      <div class="hero-target-row" style="border-top:none;padding-top:6px;margin-top:0;">
+        <span>Land + project total</span>
+        <span id="heroAllInValue" class="stat-val">—</span>
+      </div>
+    </div>
+  `;
+}
+
+/** Update hero numbers when budget changes. Called by Budget tab via Bus. */
+function updateHeroTotals(constructionTotal) {
+  const heroVal = document.getElementById('heroTotalValue');
+  const allIn = document.getElementById('heroAllInValue');
+  const pill = document.getElementById('heroDeltaPill');
+  if (!heroVal) return;
+  heroVal.textContent = fmtCurrency(constructionTotal, { short: false });
+  allIn.textContent = fmtCurrency(constructionTotal + LAND_COST, { short: true });
+  const delta = constructionTotal - TARGET_BUDGET;
+  if (Math.abs(delta) < 5000) {
+    pill.className = 'delta-pill under';
+    pill.textContent = 'on target';
+  } else if (delta > 0) {
+    pill.className = 'delta-pill over';
+    pill.textContent = '+' + fmtCurrency(delta, { short: true }) + ' over';
+  } else {
+    pill.className = 'delta-pill under';
+    pill.textContent = fmtCurrency(delta, { short: true }) + ' under';
+  }
+}
+Bus.on('budget:total', updateHeroTotals);
+/* ============================================================
+   Timeline tab — month-grid Gantt
+   ============================================================ */
+const TIMELINE_MONTHS = 28;
+
+const PHASES_DEFAULT = [
+  { id: 'p_civil',      name: 'Civil engineering & site survey',    start: 0,  end: 4,  cat: 'design',
+    detail: 'Civil engineer onboarded, topo + utilities mapping, drainage strategy.' },
+  { id: 'p_landscape',  name: 'Landscape architecture',             start: 1,  end: 5,  cat: 'design',
+    detail: 'Site/grading plan, defensible-space concept, hardscape master plan.' },
+  { id: 'p_septic',     name: 'Septic design + perc test',          start: 1,  end: 4,  cat: 'design',
+    detail: 'Engineered septic for hillside; SCC Environmental Health permit prep.' },
+  { id: 'p_struct',     name: 'Structural / MEP / Title 24',        start: 2,  end: 6,  cat: 'design',
+    detail: 'Structural per geotech (caissons), MEP design, Title 24 energy compliance.' },
+  { id: 'p_permit',     name: 'Permitting (Town + County)',         start: 4,  end: 10, cat: 'permit',
+    detail: 'Building, grading, septic, encroachment permits + HR1 fire dept review.' },
+  { id: 'p_site',       name: 'Site work — grading, retaining, septic', start: 10, end: 14, cat: 'site',
+    detail: 'Erosion control, mass grading, retaining walls, driveway, utility trenching, septic install.' },
+  { id: 'p_found',      name: 'Foundation (caissons / piers)',      start: 13, end: 15, cat: 'shell',
+    detail: 'Hillside foundation per geotech recommendations; waterproofing.' },
+  { id: 'p_frame',      name: 'Framing & shell (roof, windows)',    start: 15, end: 19, cat: 'shell',
+    detail: 'Framing both buildings, Class A roof, exterior windows/doors, weather-tight.', longLead: true },
+  { id: 'p_mep_rough',  name: 'MEP rough-in',                        start: 17, end: 20, cat: 'mep',
+    detail: 'Electrical, plumbing, HVAC, low-voltage rough-in. Inspections.' },
+  { id: 'p_drywall',    name: 'Insulation, drywall, interior trim', start: 19, end: 23, cat: 'finish',
+    detail: 'Insulation, drywall, interior doors, base/casing, paint prep.' },
+  { id: 'p_cabs',       name: 'Cabinets, tile, flooring, paint',    start: 21, end: 25, cat: 'finish',
+    detail: 'Kitchen + bath cabinets, countertops, tile, flooring, finish paint.', longLead: true },
+  { id: 'p_mep_final',  name: 'Fixtures, appliances, final MEP',    start: 23, end: 26, cat: 'mep',
+    detail: 'Plumbing fixtures, lighting, appliances, MEP trim-out, energization.' },
+  { id: 'p_landscape2', name: 'Landscape & hardscape',              start: 23, end: 27, cat: 'landscape',
+    detail: 'Patios, paths, planting, irrigation, fencing, fire-defensible zones.' },
+  { id: 'p_inspect',    name: 'Final inspections + CofO',           start: 26, end: 27, cat: 'closeout',
+    detail: 'Building, fire, septic, grading sign-offs; Certificate of Occupancy.' },
+  { id: 'p_punch',      name: 'Punch list + move-in',               start: 27, end: 28, cat: 'closeout',
+    detail: 'Final walk-throughs, punch corrections, keys handed over.' }
+];
+
+let phasesState = null;
+let timelineEditMode = false;
+
+function loadTimeline() {
+  const saved = Store.get('timeline.phases');
+  if (saved && Array.isArray(saved) && saved.length) {
+    phasesState = saved.map(p => ({ ...p }));
+    // Backfill ids if any are missing
+    phasesState.forEach((p, i) => { if (!p.id) p.id = 'p_' + i + '_' + Date.now(); });
+  } else {
+    phasesState = PHASES_DEFAULT.map(p => ({ ...p }));
+  }
+}
+function saveTimeline() {
+  Store.set('timeline.phases', phasesState);
+}
+
+const CAT_LABELS = {
+  design:    'Design / soft costs',
+  permit:    'Permitting',
+  site:      'Site work',
+  shell:     'Foundation & shell',
+  mep:       'MEP & systems',
+  finish:    'Interior finishes',
+  landscape: 'Landscape',
+  closeout:  'Inspections & closeout'
+};
+const CAT_GRADIENTS = {
+  design:    'linear-gradient(135deg, var(--purple), #d57aff)',
+  permit:    'linear-gradient(135deg, var(--orange), var(--yellow))',
+  site:      'linear-gradient(135deg, var(--blue), var(--blue-2))',
+  shell:     'linear-gradient(135deg, var(--indigo), #8a88e0)',
+  mep:       'linear-gradient(135deg, var(--teal), #7fcedf)',
+  finish:    'linear-gradient(135deg, var(--green), #5be37b)',
+  landscape: 'linear-gradient(135deg, #2da44e, #4cc270)',
+  closeout:  'linear-gradient(135deg, #8e8e93, #b0b0b5)'
+};
+
+function renderTimeline() {
+  loadTimeline();
+  const root = document.getElementById('tab-timeline');
+
+  const monthHead = Array.from({ length: TIMELINE_MONTHS }, (_, i) => {
+    const isQuarter = i % 3 === 0;
+    return `<div class="gantt-month-cell ${isQuarter ? 'gantt-quarter' : ''}">M${i + 1}</div>`;
+  }).join('');
+
+  const legend = Object.entries(CAT_LABELS).map(([key, label]) =>
+    `<span><span class="legend-dot" style="background:${CAT_GRADIENTS[key]}"></span>${label}</span>`
+  ).join('');
+
+  root.innerHTML = `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.calendar}</svg></div>
+        <div>
+          <h2 class="card-title">Project roadmap</h2>
+          <div class="card-subtitle" id="tl_subtitle">Rough estimate &middot; ~28-month build window from civil-engineer engagement to keys</div>
+        </div>
+        <div class="timeline-edit-toolbar">
+          <button class="btn" id="tl_reset" title="Reset to default phases">Reset</button>
+          <button class="btn btn-primary" id="tl_edit_toggle">
+            <span id="tl_edit_label">Edit</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="gantt-wrap">
+        <div class="gantt" id="ganttRoot">
+          <div class="gantt-row" style="border-bottom:none;">
+            <div class="gantt-label" style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;font-weight:700;">Phase</div>
+            <div class="gantt-month-head">${monthHead}</div>
+          </div>
+          <div id="ganttBody"></div>
+          <button class="gantt-add-row" id="tl_add_phase">${svgIcon(ICONS.plus, { size: 14, stroke: 'currentColor' })} Add phase</button>
+        </div>
+      </div>
+
+      <div class="legend">${legend}</div>
+
+      <div class="callout warn">
+        <div class="callout-title" style="display:flex;align-items:center;gap:6px;">
+          ${svgIcon(ICONS.alert, { size: 14, stroke: 'var(--orange)' })} Critical path & risks
+        </div>
+        <ul>
+          <li><strong>Septic perc test</strong> must clear before the building permit can be finaled — schedule it as the very first field test.</li>
+          <li><strong>HR1 fire department review</strong> can add 4–8 weeks; submit defensible-space + access plans early.</li>
+          <li><strong>Caisson / pier foundation</strong> per geotech adds 2–3 weeks vs. conventional slab; sequence after winter rains.</li>
+          <li><strong>Long-lead items</strong> (windows, custom cabinets, specialty doors) — order at framing start, not finish phase.</li>
+          <li><strong>Sewer is ~1500 ft away.</strong> Septic is the working assumption; revisit if a community sewer extension becomes available.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.flag}</svg></div>
+        <div>
+          <h2 class="card-title">Status — what's done, what's next</h2>
+          <div class="card-subtitle">Snapshot as of project planning</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);display:flex;align-items:center;gap:6px;">
+            ${svgIcon(ICONS.check, { size: 14, stroke: 'var(--green)' })} Completed
+          </div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--text2);line-height:1.7;">
+            <li>Architectural plans + site plan (Town of Los Gatos site-plan submission)</li>
+            <li>Soils &amp; geotechnical report</li>
+            <li>Land acquisition (1.28 ac, $835k)</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:10px;color:var(--text);display:flex;align-items:center;gap:6px;">
+            ${svgIcon(ICONS.clock, { size: 14, stroke: 'var(--blue)' })} Up next
+          </div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--text2);line-height:1.7;">
+            <li>Engage civil engineer (drainage, utilities, grading)</li>
+            <li>Engage landscape architect (defensible space + hardscape)</li>
+            <li>Septic design + perc test (county environmental health)</li>
+            <li>Structural engineer per geotech recommendations</li>
+            <li>Title 24 / MEP design coordination</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  `;
+
+  renderGanttBody();
+  bindTimelineToolbar();
+  applyEditModeUI();
+}
+
+function renderGanttBody() {
+  const body = document.getElementById('ganttBody');
+  if (!body) return;
+  body.innerHTML = phasesState.map((p, i) => phaseRowHTML(p, i)).join('');
+  bindPhaseRowHandlers();
+}
+
+function phaseRowHTML(p, idx) {
+  const left = (p.start / TIMELINE_MONTHS) * 100;
+  const width = ((p.end - p.start) / TIMELINE_MONTHS) * 100;
+  const longLeadBadge = p.longLead
+    ? `<span style="margin-left:6px;display:inline-flex;align-items:center;opacity:0.85;">${svgIcon(ICONS.clock, { size: 12, stroke: '#fff' })}</span>`
+    : '';
+
+  const catOptions = Object.keys(CAT_LABELS).map(k =>
+    `<option value="${k}" ${k === p.cat ? 'selected' : ''}>${CAT_LABELS[k]}</option>`
+  ).join('');
+
+  return `
+    <div class="gantt-row" data-phase-idx="${idx}" data-phase-id="${escapeAttr(p.id)}">
+      <div class="gantt-label">
+        <span class="row-handle" data-handle="${idx}" title="Drag to reorder">
+          ${svgIcon('<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>', { size: 14, stroke: 'currentColor' })}
+        </span>
+        <span class="gantt-label-num">${idx + 1}</span>
+        <span class="gantt-label-name">
+          <span class="phase-name-display">${escapeHtml(p.name)}</span>
+          <input class="phase-name-input" data-name-input="${idx}" value="${escapeAttr(p.name)}" style="display:none;">
+        </span>
+        <select class="cat-select" data-cat="${idx}" title="Category">${catOptions}</select>
+        <button class="row-delete" data-delete-phase="${idx}" title="Remove phase" aria-label="Remove">
+          ${svgIcon(ICONS.trash, { size: 14, stroke: 'currentColor' })}
+        </button>
+      </div>
+      <div class="gantt-track">
+        <div class="gantt-bar cat-${p.cat}" data-bar="${idx}" style="left:${left}%; width:${width}%;">
+          <div class="resize-handle left"  data-resize="left"  data-bar-idx="${idx}"></div>
+          <span style="pointer-events:none;">M${p.start + 1}–M${p.end}</span>${longLeadBadge}
+          <div class="gantt-tooltip">${escapeHtml(p.detail || '')}</div>
+          <div class="resize-handle right" data-resize="right" data-bar-idx="${idx}"></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function bindTimelineToolbar() {
+  const toggle = document.getElementById('tl_edit_toggle');
+  const reset  = document.getElementById('tl_reset');
+  const addBtn = document.getElementById('tl_add_phase');
+
+  toggle.addEventListener('click', () => {
+    timelineEditMode = !timelineEditMode;
+    if (!timelineEditMode) saveTimeline(); // committing on Save
+    applyEditModeUI();
+  });
+
+  reset.addEventListener('click', () => {
+    if (!confirm('Reset all phases to defaults? This will discard your edits.')) return;
+    Store.set('timeline.phases', null);
+    loadTimeline();
+    renderGanttBody();
+  });
+
+  addBtn.addEventListener('click', () => {
+    const newPhase = {
+      id: 'p_new_' + Date.now(),
+      name: 'New phase',
+      start: 0,
+      end: 2,
+      cat: 'design',
+      detail: ''
+    };
+    phasesState.push(newPhase);
+    saveTimeline();
+    renderGanttBody();
+    applyEditModeUI();
+    // Focus the new phase's name input
+    const newIdx = phasesState.length - 1;
+    const inp = document.querySelector(`input[data-name-input="${newIdx}"]`);
+    if (inp) { inp.focus(); inp.select(); }
+  });
+}
+
+function applyEditModeUI() {
+  const root = document.getElementById('ganttRoot');
+  const label = document.getElementById('tl_edit_label');
+  const sub = document.getElementById('tl_subtitle');
+  const toggleBtn = document.getElementById('tl_edit_toggle');
+  if (!root) return;
+  root.classList.toggle('edit-mode', timelineEditMode);
+  label.textContent = timelineEditMode ? 'Save' : 'Edit';
+  toggleBtn.classList.toggle('btn-primary', !timelineEditMode);
+
+  if (timelineEditMode) {
+    sub.textContent = 'Edit mode — drag bars to slide, drag edges to resize, drag the handle to reorder. Click Save to exit.';
+  } else {
+    sub.textContent = 'Rough estimate · ~28-month build window from civil-engineer engagement to keys';
+  }
+
+  // Toggle visibility of name input vs display + add button
+  document.querySelectorAll('.phase-name-display').forEach(el => {
+    el.style.display = timelineEditMode ? 'none' : '';
+  });
+  document.querySelectorAll('.phase-name-input').forEach(el => {
+    el.style.display = timelineEditMode ? 'block' : 'none';
+  });
+  document.querySelectorAll('.gantt-add-row').forEach(el => {
+    el.classList.toggle('show', timelineEditMode);
+  });
+}
+
+function bindPhaseRowHandlers() {
+  // Bar drag (move + resize)
+  document.querySelectorAll('.gantt-bar').forEach(bar => {
+    bar.addEventListener('pointerdown', onBarPointerDown);
+  });
+  // Phase name input
+  document.querySelectorAll('input[data-name-input]').forEach(inp => {
+    inp.addEventListener('input', e => {
+      const idx = Number(e.currentTarget.dataset.nameInput);
+      phasesState[idx].name = e.currentTarget.value;
+      // Live update display sibling so reverting from edit mode shows latest
+      const display = e.currentTarget.parentElement.querySelector('.phase-name-display');
+      if (display) display.textContent = e.currentTarget.value;
+    });
+  });
+  // Category select
+  document.querySelectorAll('select[data-cat]').forEach(sel => {
+    sel.addEventListener('change', e => {
+      const idx = Number(e.currentTarget.dataset.cat);
+      phasesState[idx].cat = e.currentTarget.value;
+      const bar = document.querySelector(`.gantt-bar[data-bar="${idx}"]`);
+      if (bar) {
+        bar.className = bar.className.replace(/cat-\w+/g, '') + ` cat-${phasesState[idx].cat}`;
+        bar.classList.add('gantt-bar');
+      }
+    });
+  });
+  // Delete phase
+  document.querySelectorAll('button[data-delete-phase]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = Number(btn.dataset.deletePhase);
+      phasesState.splice(idx, 1);
+      renderGanttBody();
+      applyEditModeUI();
+    });
+  });
+  // Drag-reorder handles (HTML5 drag for the row)
+  document.querySelectorAll('.row-handle').forEach(h => {
+    const row = h.closest('.gantt-row');
+    if (!row) return;
+    h.addEventListener('mousedown', () => row.setAttribute('draggable', 'true'));
+    row.addEventListener('dragstart', onRowDragStart);
+    row.addEventListener('dragover',  onRowDragOver);
+    row.addEventListener('dragleave', onRowDragLeave);
+    row.addEventListener('drop',      onRowDrop);
+    row.addEventListener('dragend',   onRowDragEnd);
+  });
+}
+
+/* ---------- Bar drag-move + resize ---------- */
+let barDrag = null;
+
+function onBarPointerDown(e) {
+  if (!timelineEditMode) return;
+  // If clicking on a resize handle, start resize. Else, move.
+  const isHandle = e.target.classList && e.target.classList.contains('resize-handle');
+  const bar = e.currentTarget;
+  const idx = Number(bar.dataset.bar);
+  const track = bar.parentElement;
+  const trackRect = track.getBoundingClientRect();
+  const trackW = trackRect.width;
+  const monthWidth = trackW / TIMELINE_MONTHS;
+  const phase = phasesState[idx];
+
+  barDrag = {
+    mode: isHandle ? (e.target.dataset.resize === 'left' ? 'resize-left' : 'resize-right') : 'move',
+    idx,
+    startX: e.clientX,
+    monthWidth,
+    trackW,
+    origStart: phase.start,
+    origEnd:   phase.end,
+    bar
+  };
+  bar.classList.add('dragging-bar');
+  e.preventDefault();
+  bar.setPointerCapture(e.pointerId);
+  bar.addEventListener('pointermove', onBarPointerMove);
+  bar.addEventListener('pointerup',   onBarPointerUp);
+  bar.addEventListener('pointercancel', onBarPointerUp);
+}
+
+function onBarPointerMove(e) {
+  if (!barDrag) return;
+  const dx = e.clientX - barDrag.startX;
+  const dMonths = Math.round(dx / barDrag.monthWidth);
+  const phase = phasesState[barDrag.idx];
+
+  if (barDrag.mode === 'move') {
+    const duration = barDrag.origEnd - barDrag.origStart;
+    let newStart = barDrag.origStart + dMonths;
+    newStart = Math.max(0, Math.min(TIMELINE_MONTHS - duration, newStart));
+    phase.start = newStart;
+    phase.end   = newStart + duration;
+  } else if (barDrag.mode === 'resize-left') {
+    let newStart = barDrag.origStart + dMonths;
+    newStart = Math.max(0, Math.min(barDrag.origEnd - 1, newStart));
+    phase.start = newStart;
+  } else if (barDrag.mode === 'resize-right') {
+    let newEnd = barDrag.origEnd + dMonths;
+    newEnd = Math.max(barDrag.origStart + 1, Math.min(TIMELINE_MONTHS, newEnd));
+    phase.end = newEnd;
+  }
+
+  // Update bar geometry + label live
+  const bar = barDrag.bar;
+  bar.style.left  = (phase.start / TIMELINE_MONTHS * 100) + '%';
+  bar.style.width = ((phase.end - phase.start) / TIMELINE_MONTHS * 100) + '%';
+  const lbl = bar.querySelector('span:not([class])');
+  if (lbl) lbl.textContent = `M${phase.start + 1}–M${phase.end}`;
+}
+
+function onBarPointerUp(e) {
+  if (!barDrag) return;
+  const bar = barDrag.bar;
+  bar.classList.remove('dragging-bar');
+  bar.removeEventListener('pointermove', onBarPointerMove);
+  bar.removeEventListener('pointerup',   onBarPointerUp);
+  bar.removeEventListener('pointercancel', onBarPointerUp);
+  try { bar.releasePointerCapture(e.pointerId); } catch {}
+  barDrag = null;
+  saveTimeline();
+}
+
+/* ---------- Row drag-reorder ---------- */
+let rowDrag = null;
+
+function onRowDragStart(e) {
+  if (!timelineEditMode) { e.preventDefault(); return; }
+  const row = e.currentTarget;
+  rowDrag = { fromIdx: Number(row.dataset.phaseIdx), row };
+  row.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', row.dataset.phaseIdx);
+}
+
+function onRowDragOver(e) {
+  if (!rowDrag) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const row = e.currentTarget;
+  const rect = row.getBoundingClientRect();
+  const above = (e.clientY - rect.top) < rect.height / 2;
+  // Clear sibling indicators
+  document.querySelectorAll('.gantt-row').forEach(r => {
+    r.classList.remove('drop-above', 'drop-below');
+  });
+  if (Number(row.dataset.phaseIdx) !== rowDrag.fromIdx) {
+    row.classList.toggle('drop-above', above);
+    row.classList.toggle('drop-below', !above);
+  }
+}
+
+function onRowDragLeave(e) {
+  e.currentTarget.classList.remove('drop-above', 'drop-below');
+}
+
+function onRowDrop(e) {
+  e.preventDefault();
+  if (!rowDrag) return;
+  const targetRow = e.currentTarget;
+  const toIdxRaw = Number(targetRow.dataset.phaseIdx);
+  const fromIdx = rowDrag.fromIdx;
+  const rect = targetRow.getBoundingClientRect();
+  const above = (e.clientY - rect.top) < rect.height / 2;
+  let toIdx = toIdxRaw + (above ? 0 : 1);
+  if (toIdx > fromIdx) toIdx -= 1; // adjust because we'll splice the source out first
+  if (fromIdx !== toIdx && fromIdx !== toIdxRaw) {
+    const [moved] = phasesState.splice(fromIdx, 1);
+    phasesState.splice(toIdx, 0, moved);
+    saveTimeline();
+  }
+  document.querySelectorAll('.gantt-row').forEach(r => {
+    r.classList.remove('drop-above', 'drop-below', 'dragging');
+  });
+  rowDrag = null;
+  renderGanttBody();
+  applyEditModeUI();
+}
+
+function onRowDragEnd(e) {
+  document.querySelectorAll('.gantt-row').forEach(r => {
+    r.classList.remove('drop-above', 'drop-below', 'dragging');
+    r.removeAttribute('draggable');
+  });
+  rowDrag = null;
+}
+/* ============================================================
+   Budget tab — editable line items with live subtotals
+   ============================================================ */
+const BUDGET_DEFAULT = [
+  { id: 'design', title: 'Design & soft costs', icon: 'edit', iconClass: 'purple',
+    rows: [
+      { id: 'arch',       name: 'Architect (engaged)',                     est: 80000 },
+      { id: 'civil',      name: 'Civil engineer',                          est: 25000 },
+      { id: 'land',       name: 'Landscape architect',                     est: 20000 },
+      { id: 'struct',     name: 'Structural engineer',                     est: 15000 },
+      { id: 'geotech',    name: 'Geotech (done)',                          est: 12000 },
+      { id: 't24',        name: 'Title 24 / energy compliance',            est: 5000  },
+      { id: 'survey',     name: 'Surveyor',                                est: 8000  },
+      { id: 'permits',    name: 'Permits & fees (Town + County + fire)',   est: 75000 }
+    ]
+  },
+  { id: 'site', title: 'Site work', icon: 'ruler', iconClass: 'orange',
+    rows: [
+      { id: 'erosion',    name: 'Erosion control / SWPPP',                 est: 15000 },
+      { id: 'grade',      name: 'Mass grading (hillside)',                 est: 80000 },
+      { id: 'retain',     name: 'Retaining walls',                         est: 90000 },
+      { id: 'drive',      name: 'Driveway (long, hillside)',               est: 40000 },
+      { id: 'utility',    name: 'Utility trenching (water/power/gas/comm)', est: 35000 },
+      { id: 'septic',     name: 'Septic system (engineered, hillside)',    est: 75000 }
+    ]
+  },
+  { id: 'foundation', title: 'Foundation', icon: 'layers', iconClass: '',
+    rows: [
+      { id: 'caisson',    name: 'Caissons / piers per geotech',            est: 140000 },
+      { id: 'slab',       name: 'Slab / stem walls',                       est: 50000 },
+      { id: 'wp',         name: 'Waterproofing + drainage',                est: 30000 }
+    ]
+  },
+  { id: 'shell', title: 'Shell (primary house)', icon: 'home', iconClass: 'indigo',
+    rows: [
+      { id: 'frame',      name: 'Framing labor + lumber',                  est: 280000 },
+      { id: 'roof',       name: 'Roofing (Class A for HR1)',               est: 70000  },
+      { id: 'win',        name: 'Windows + exterior doors',                est: 90000  },
+      { id: 'siding',     name: 'Exterior siding / stucco',                est: 110000 },
+      { id: 'rplumb',     name: 'Rough plumbing',                          est: 50000  },
+      { id: 'relec',      name: 'Rough electrical',                        est: 50000  }
+    ]
+  },
+  { id: 'mep', title: 'MEP & systems', icon: 'zap', iconClass: 'teal',
+    rows: [
+      { id: 'hvac',       name: 'HVAC (heat-pump, Title 24)',              est: 80000 },
+      { id: 'efin',       name: 'Electrical finish + panel + solar-ready', est: 70000 },
+      { id: 'pfin',       name: 'Plumbing finish + fixtures',              est: 70000 },
+      { id: 'lv',         name: 'Low-voltage / smart home / security',     est: 30000 },
+      { id: 'solar',      name: 'Solar PV (Title 24 mandate)',             est: 30000 }
+    ]
+  },
+  { id: 'finish', title: 'Interior finishes', icon: 'hammer', iconClass: 'green',
+    rows: [
+      { id: 'insul',      name: 'Insulation',                              est: 35000 },
+      { id: 'drywall',    name: 'Drywall',                                 est: 80000 },
+      { id: 'doors',      name: 'Interior doors + trim',                   est: 60000 },
+      { id: 'cabs',       name: 'Cabinets (kitchen, baths, built-ins)',    est: 140000 },
+      { id: 'counter',    name: 'Countertops',                             est: 40000 },
+      { id: 'tile',       name: 'Tile + stone',                            est: 55000 },
+      { id: 'floor',      name: 'Flooring (hardwood / LVP)',               est: 60000 },
+      { id: 'paint',      name: 'Paint',                                   est: 30000 },
+      { id: 'appl',       name: 'Appliances',                              est: 40000 },
+      { id: 'pfix',       name: 'Plumbing fixtures',                       est: 20000 },
+      { id: 'lights',     name: 'Light fixtures',                          est: 15000 }
+    ]
+  },
+  { id: 'deck', title: 'Rooftop deck', icon: 'sun', iconClass: 'orange',
+    rows: [
+      { id: 'membrane',   name: 'Waterproof membrane',                     est: 15000 },
+      { id: 'decking',    name: 'Decking + railings',                      est: 25000 },
+      { id: 'deckdrain',  name: 'Drainage + scuppers',                     est: 5000  }
+    ]
+  },
+  { id: 'adu', title: 'ADU (~1,000 sf)', icon: 'home', iconClass: 'purple',
+    rows: [
+      { id: 'adu_found',  name: 'Foundation',                              est: 30000 },
+      { id: 'adu_shell',  name: 'Shell (frame, roof, exterior, windows)',  est: 70000 },
+      { id: 'adu_mep',    name: 'MEP rough + finish',                      est: 60000 },
+      { id: 'adu_finish', name: 'Interior finishes (cabs, floors, paint)', est: 60000 }
+    ]
+  },
+  { id: 'landscape', title: 'Landscape & hardscape', icon: 'trees', iconClass: '',
+    rows: [
+      { id: 'hardscape',  name: 'Hardscape (patios, paths, walls)',        est: 80000 },
+      { id: 'plant',      name: 'Planting + irrigation',                   est: 50000 },
+      { id: 'fire',       name: 'Defensible-space zones (HR1 fire)',       est: 25000 },
+      { id: 'fence',      name: 'Fencing / gates',                         est: 25000 }
+    ]
+  }
+];
+
+let budgetState = null;       // [{id, title, icon, iconClass, rows: [{id, name, est, actual, notes}]}]
+let contingencyPct = 10;
+
+function loadBudget() {
+  const saved = Store.get('budget.state');
+  const savedC = Store.get('budget.contingencyPct');
+  if (saved && Array.isArray(saved)) {
+    budgetState = saved;
+    // Backfill `locked` and `children` on rows persisted before these features existed
+    budgetState.forEach(s => s.rows.forEach(r => {
+      if (typeof r.locked !== 'boolean') r.locked = false;
+      if (!Array.isArray(r.children)) r.children = [];
+      r.children.forEach(c => { if (typeof c.locked !== 'boolean') c.locked = false; });
+    }));
+  } else {
+    // Deep clone defaults, add empty actual/notes/locked/children fields
+    budgetState = BUDGET_DEFAULT.map(s => ({
+      ...s,
+      rows: s.rows.map(r => ({ ...r, actual: '', notes: '', locked: false, children: [] }))
+    }));
+  }
+  if (typeof savedC === 'number') contingencyPct = savedC;
+}
+function saveBudget() {
+  Store.set('budget.state', budgetState);
+  Store.set('budget.contingencyPct', contingencyPct);
+}
+
+function rowEffective(r) {
+  const a = parseFloat(r.actual);
+  if (!isNaN(a) && r.actual !== '' && r.actual !== null) return a;
+  return Number(r.est) || 0;
+}
+function rowAndChildrenTotal(r) {
+  let sum = rowEffective(r);
+  if (Array.isArray(r.children)) {
+    sum += r.children.reduce((s, c) => s + rowEffective(c), 0);
+  }
+  return sum;
+}
+function sectionTotal(s) {
+  return s.rows.reduce((sum, r) => sum + rowAndChildrenTotal(r), 0);
+}
+function hardCostsTotal() {
+  return budgetState.reduce((sum, s) => sum + sectionTotal(s), 0);
+}
+function contingencyAmount() {
+  return Math.round(hardCostsTotal() * (contingencyPct / 100));
+}
+function grandTotal() {
+  return hardCostsTotal() + contingencyAmount();
+}
+
+function renderBudget() {
+  loadBudget();
+  const root = document.getElementById('tab-budget');
+  root.innerHTML = `
+    <div class="card" style="position:sticky;top:70px;z-index:30;background:var(--card);">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;align-items:end;">
+        <div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);margin-bottom:4px;">Hard costs</div>
+          <div style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;" id="bdg_hard">$0</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);margin-bottom:4px;">
+            Contingency
+            <input type="text" inputmode="decimal" class="numeric-input" id="bdg_cont_pct" value="${formatNumber(contingencyPct)}"
+                   style="width:60px;padding:4px 6px;font-size:12px;display:inline-block;margin-left:6px;text-align:right;">
+            <span style="font-size:12px;">%</span>
+          </div>
+          <div style="font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.01em;" id="bdg_cont_amt">$0</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text3);margin-bottom:4px;">Grand total</div>
+          <div style="font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-0.02em;color:var(--blue);" id="bdg_grand">$0</div>
+          <div id="bdg_vs_target" style="font-size:12px;color:var(--text2);margin-top:2px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.dollar}</svg></div>
+        <div>
+          <h2 class="card-title">Project budget</h2>
+          <div class="card-subtitle">Edit estimates inline. Fill <em>Actual</em> as bids return — it overrides the estimate in totals.</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px;">
+          <button class="btn" id="bdg_reset">Reset to defaults</button>
+        </div>
+      </div>
+
+      <div id="bdg_sections"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.scale}</svg></div>
+        <div>
+          <h2 class="card-title">Hit the $2.5M target</h2>
+          <div class="card-subtitle">Largest line items — candidates to value-engineer if grand total is over budget</div>
+        </div>
+      </div>
+      <div id="bdg_top_items"></div>
+    </div>
+  `;
+  renderBudgetSections();
+  bindBudgetTopControls();
+  recalcBudget();
+}
+
+function renderBudgetSections() {
+  const wrap = document.getElementById('bdg_sections');
+  wrap.innerHTML = budgetState.map((s, sIdx) => `
+    <div class="budget-section" data-section="${sIdx}">
+      <div class="budget-section-head">
+        <div class="budget-section-title">
+          <div class="card-icon ${s.iconClass || ''}" style="width:28px;height:28px;border-radius:7px;">
+            ${svgIcon(ICONS[s.icon] || ICONS.dollar, { size: 14, stroke: '#fff' })}
+          </div>
+          <span>${s.title}</span>
+        </div>
+        <div class="budget-section-total" data-subtotal="${sIdx}">$0</div>
+      </div>
+      <div class="budget-row budget-head">
+        <div>Item</div>
+        <div style="text-align:right;">Estimate</div>
+        <div style="text-align:right;" class="col-actual">Actual</div>
+        <div class="col-notes">Notes</div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      ${s.rows.map((r, rIdx) => {
+        const parentHTML = budgetRowHTML(sIdx, rIdx, r);
+        const childrenHTML = (r.children || []).map((c, cIdx) =>
+          budgetChildRowHTML(sIdx, rIdx, cIdx, c)
+        ).join('');
+        return parentHTML + childrenHTML;
+      }).join('')}
+      <button class="add-row-btn" data-add="${sIdx}">${svgIcon(ICONS.plus, { size: 14 })} Add line item</button>
+    </div>
+  `).join('');
+
+  // Bind input listeners (only on unlocked rows; locked rows have no inputs)
+  wrap.querySelectorAll('input[data-field]').forEach(inp => {
+    inp.addEventListener('input', onBudgetInput);
+  });
+  // Bind delete buttons
+  wrap.querySelectorAll('button[data-del]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parts = btn.dataset.del.split(',').map(Number);
+      if (parts.length === 2) {
+        budgetState[parts[0]].rows.splice(parts[1], 1);
+      } else {
+        budgetState[parts[0]].rows[parts[1]].children.splice(parts[2], 1);
+      }
+      saveBudget();
+      renderBudgetSections();
+      recalcBudget();
+    });
+  });
+  // Bind lock toggles
+  wrap.querySelectorAll('button[data-lock]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parts = btn.dataset.lock.split(',').map(Number);
+      const target = parts.length === 2
+        ? budgetState[parts[0]].rows[parts[1]]
+        : budgetState[parts[0]].rows[parts[1]].children[parts[2]];
+      target.locked = !target.locked;
+      saveBudget();
+      renderBudgetSections();
+    });
+  });
+  // Bind add-child buttons
+  wrap.querySelectorAll('button[data-add-child]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const [sIdx, rIdx] = btn.dataset.addChild.split(',').map(Number);
+      const parent = budgetState[sIdx].rows[rIdx];
+      if (!Array.isArray(parent.children)) parent.children = [];
+      parent.children.push({
+        id: 'child_' + Date.now(),
+        name: 'Sub-item',
+        est: 0,
+        actual: '',
+        notes: '',
+        locked: false
+      });
+      saveBudget();
+      renderBudgetSections();
+      recalcBudget();
+      // Focus the new child's name field
+      const cIdx = parent.children.length - 1;
+      const last = document.querySelector(`input[data-field="name"][data-row="${sIdx},${rIdx},${cIdx}"]`);
+      if (last) { last.focus(); last.select(); }
+    });
+  });
+  // Bind add-row buttons
+  wrap.querySelectorAll('button[data-add]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sIdx = Number(btn.dataset.add);
+      const newId = 'custom_' + Date.now();
+      budgetState[sIdx].rows.push({ id: newId, name: 'New item', est: 0, actual: '', notes: '', locked: false, children: [] });
+      saveBudget();
+      renderBudgetSections();
+      recalcBudget();
+      const last = document.querySelector(`input[data-field="name"][data-row="${sIdx},${budgetState[sIdx].rows.length - 1}"]`);
+      if (last) { last.focus(); last.select(); }
+    });
+  });
+}
+
+function budgetRowHTML(sIdx, rIdx, r) {
+  const key = `${sIdx},${rIdx}`;
+  const locked = !!r.locked;
+
+  const nameCell = locked
+    ? `<span class="locked-cell">${escapeHtml(r.name)}</span>`
+    : `<input type="text"   data-field="name"   data-row="${key}" value="${escapeAttr(r.name)}">`;
+
+  const estCell = locked
+    ? `<span class="locked-cell numeric">${fmtCurrency(r.est ?? 0)}</span>`
+    : `<input type="text" inputmode="decimal" class="numeric-input" data-field="est"    data-row="${key}" value="${formatNumber(r.est ?? 0)}">`;
+
+  const actualVal = (r.actual === '' || r.actual == null) ? null : Number(r.actual);
+  const actualCell = locked
+    ? `<span class="locked-cell numeric ${actualVal == null ? 'muted' : ''} col-actual">${actualVal == null ? '—' : fmtCurrency(actualVal)}</span>`
+    : `<input type="text" inputmode="decimal" class="numeric-input col-actual" data-field="actual" data-row="${key}" value="${r.actual === '' || r.actual == null ? '' : formatNumber(r.actual)}" placeholder="—">`;
+
+  const notesCell = locked
+    ? `<span class="locked-cell ${(r.notes || '') === '' ? 'muted' : ''} col-notes">${escapeHtml(r.notes || '—')}</span>`
+    : `<input type="text"   data-field="notes"  data-row="${key}" value="${escapeAttr(r.notes || '')}" placeholder="bid #, vendor, …" class="col-notes">`;
+
+  const lockBtn = `
+    <button class="btn btn-icon lock-btn ${locked ? 'locked-on' : ''}" data-lock="${key}"
+            title="${locked ? 'Unlock to edit' : 'Lock row (read-only)'}"
+            aria-label="${locked ? 'Unlock row' : 'Lock row'}"
+            aria-pressed="${locked ? 'true' : 'false'}">
+      ${svgIcon(locked ? ICONS.lock : ICONS.unlock, { size: 14, stroke: locked ? 'var(--blue)' : 'var(--text2)' })}
+    </button>`;
+
+  const delBtn = `
+    <button class="btn btn-icon" data-del="${key}" title="Remove row" aria-label="Remove" ${locked ? 'disabled' : ''}>
+      ${svgIcon(ICONS.trash, { size: 14, stroke: 'var(--red)' })}
+    </button>`;
+
+  const addChildBtn = `
+    <button class="btn btn-icon add-child-btn" data-add-child="${key}" title="Add sub-item" aria-label="Add sub-item" ${locked ? 'disabled' : ''}>
+      ${svgIcon(ICONS.plus, { size: 14, stroke: 'currentColor' })}
+    </button>`;
+
+  return `
+    <div class="budget-row ${locked ? 'locked' : ''}">
+      ${nameCell}
+      ${estCell}
+      ${actualCell}
+      ${notesCell}
+      ${lockBtn}
+      ${delBtn}
+      ${addChildBtn}
+    </div>
+  `;
+}
+
+function budgetChildRowHTML(sIdx, rIdx, cIdx, c) {
+  const key = `${sIdx},${rIdx},${cIdx}`;
+  const locked = !!c.locked;
+
+  const childMarker = `<span class="child-marker">${svgIcon('<polyline points="7 7 7 14 17 14"/>', { size: 12, stroke: 'currentColor' })}</span>`;
+
+  const nameCell = locked
+    ? `<div class="row-name-wrap">${childMarker}<span class="locked-cell">${escapeHtml(c.name)}</span></div>`
+    : `<div class="row-name-wrap">${childMarker}<input type="text" data-field="name" data-row="${key}" value="${escapeAttr(c.name)}"></div>`;
+
+  const estCell = locked
+    ? `<span class="locked-cell numeric">${fmtCurrency(c.est ?? 0)}</span>`
+    : `<input type="text" inputmode="decimal" class="numeric-input" data-field="est"    data-row="${key}" value="${formatNumber(c.est ?? 0)}">`;
+
+  const actualVal = (c.actual === '' || c.actual == null) ? null : Number(c.actual);
+  const actualCell = locked
+    ? `<span class="locked-cell numeric ${actualVal == null ? 'muted' : ''} col-actual">${actualVal == null ? '—' : fmtCurrency(actualVal)}</span>`
+    : `<input type="text" inputmode="decimal" class="numeric-input col-actual" data-field="actual" data-row="${key}" value="${c.actual === '' || c.actual == null ? '' : formatNumber(c.actual)}" placeholder="—">`;
+
+  const notesCell = locked
+    ? `<span class="locked-cell ${(c.notes || '') === '' ? 'muted' : ''} col-notes">${escapeHtml(c.notes || '—')}</span>`
+    : `<input type="text"   data-field="notes"  data-row="${key}" value="${escapeAttr(c.notes || '')}" placeholder="" class="col-notes">`;
+
+  const lockBtn = `
+    <button class="btn btn-icon lock-btn ${locked ? 'locked-on' : ''}" data-lock="${key}"
+            title="${locked ? 'Unlock to edit' : 'Lock row'}"
+            aria-label="${locked ? 'Unlock' : 'Lock'}"
+            aria-pressed="${locked ? 'true' : 'false'}">
+      ${svgIcon(locked ? ICONS.lock : ICONS.unlock, { size: 14, stroke: locked ? 'var(--blue)' : 'var(--text2)' })}
+    </button>`;
+
+  const delBtn = `
+    <button class="btn btn-icon" data-del="${key}" title="Remove sub-item" aria-label="Remove" ${locked ? 'disabled' : ''}>
+      ${svgIcon(ICONS.trash, { size: 14, stroke: 'var(--red)' })}
+    </button>`;
+
+  // Empty cell where parent's [+] would be — keeps grid alignment
+  return `
+    <div class="budget-row child-row ${locked ? 'locked' : ''}">
+      ${nameCell}
+      ${estCell}
+      ${actualCell}
+      ${notesCell}
+      ${lockBtn}
+      ${delBtn}
+      <div></div>
+    </div>
+  `;
+}
+
+function onBudgetInput(e) {
+  const inp = e.currentTarget;
+  const parts = inp.dataset.row.split(',').map(Number);
+  const field = inp.dataset.field;
+  const row = parts.length === 2
+    ? budgetState[parts[0]].rows[parts[1]]
+    : budgetState[parts[0]].rows[parts[1]].children[parts[2]];
+  if (field === 'name' || field === 'notes') {
+    row[field] = inp.value;
+  } else {
+    row[field] = inp.value === '' ? '' : parseNumericInput(inp.value);
+  }
+  saveBudget();
+  recalcBudget();
+}
+
+function bindBudgetTopControls() {
+  document.getElementById('bdg_cont_pct').addEventListener('input', e => {
+    contingencyPct = Math.max(0, parseNumericInput(e.target.value) || 0);
+    saveBudget();
+    recalcBudget();
+  });
+  document.getElementById('bdg_reset').addEventListener('click', () => {
+    if (!confirm('Reset all budget rows to default estimates? This will clear your actuals and notes.')) return;
+    Store.set('budget.state', null);
+    Store.set('budget.contingencyPct', null);
+    contingencyPct = 10;
+    loadBudget();
+    renderBudgetSections();
+    recalcBudget();
+  });
+}
+
+function recalcBudget() {
+  // Section subtotals
+  budgetState.forEach((s, idx) => {
+    const cell = document.querySelector(`[data-subtotal="${idx}"]`);
+    if (cell) cell.textContent = fmtCurrency(sectionTotal(s));
+  });
+
+  const hard = hardCostsTotal();
+  const cont = contingencyAmount();
+  const grand = grandTotal();
+
+  document.getElementById('bdg_hard').textContent = fmtCurrency(hard);
+  document.getElementById('bdg_cont_amt').textContent = fmtCurrency(cont);
+  document.getElementById('bdg_grand').textContent = fmtCurrency(grand);
+
+  const vs = document.getElementById('bdg_vs_target');
+  const delta = grand - TARGET_BUDGET;
+  if (Math.abs(delta) < 5000) {
+    vs.innerHTML = `<span style="color:#1f9b34;font-weight:600;">on target</span> &middot; ${fmtCurrency(TARGET_BUDGET, { short: true })}`;
+  } else if (delta > 0) {
+    vs.innerHTML = `<span style="color:var(--red);font-weight:600;">+${fmtCurrency(delta, { short: true })} over</span> &middot; target ${fmtCurrency(TARGET_BUDGET, { short: true })}`;
+  } else {
+    vs.innerHTML = `<span style="color:#1f9b34;font-weight:600;">${fmtCurrency(delta, { short: true })} under</span> &middot; target ${fmtCurrency(TARGET_BUDGET, { short: true })}`;
+  }
+
+  renderBudgetTopItems();
+  Bus.emit('budget:total', grand);
+}
+
+function renderBudgetTopItems() {
+  const flat = [];
+  budgetState.forEach(s => {
+    s.rows.forEach(r => {
+      flat.push({ section: s.title, name: r.name, amt: rowEffective(r) });
+      (r.children || []).forEach(c => {
+        flat.push({ section: s.title, name: r.name + ' › ' + c.name, amt: rowEffective(c) });
+      });
+    });
+  });
+  flat.sort((a, b) => b.amt - a.amt);
+  const top = flat.slice(0, 8);
+  const grand = grandTotal();
+  const wrap = document.getElementById('bdg_top_items');
+  if (!wrap) return;
+  wrap.innerHTML = `
+    <table class="data-table">
+      <thead><tr><th>#</th><th>Item</th><th>Section</th><th>Amount</th><th>% of total</th></tr></thead>
+      <tbody>
+        ${top.map((r, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${escapeHtml(r.name)}</td>
+            <td style="color:var(--text2);">${escapeHtml(r.section)}</td>
+            <td>${fmtCurrency(r.amt)}</td>
+            <td>${grand > 0 ? fmtPct((r.amt / grand) * 100) : '—'}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+/* ============================================================
+   Tiny helpers
+   ============================================================ */
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+function escapeAttr(s) {
+  return escapeHtml(s);
+}
+/* ============================================================
+   Financing tab — loan qualification
+   ============================================================ */
+const FIN_DEFAULTS = {
+  income:             450000,   // gross annual household
+  monthlyDebts:       4000,     // existing mortgage(s), cars, cards, student loans
+  liquidReserves:     200000,
+  cashAppliedToDown:  0,        // subset of liquid reserves applied to down payment
+  creditScore:        760,
+  perm_rate:          6.5,      // permanent loan rate (post-conversion), % annual
+  perm_term:          30,
+  prop_tax_pct:       1.25,     // Santa Clara County
+  insurance:          4500      // annual, high-fire
+};
+
+function loadFin() {
+  return Object.fromEntries(Object.entries(FIN_DEFAULTS).map(
+    ([k, v]) => [k, Store.get('financing.' + k, v)]
+  ));
+}
+function saveFin(k, v) { Store.set('financing.' + k, v); }
+
+/** Standard mortgage P&I (monthly). */
+function calcMortgage(principal, annualRatePct, years) {
+  principal = Math.max(0, Number(principal) || 0);
+  const r = (Number(annualRatePct) || 0) / 100 / 12;
+  const n = (Number(years) || 0) * 12;
+  if (principal === 0 || n === 0) return 0;
+  if (r === 0) return principal / n;
+  return principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+}
+
+function renderFinancing() {
+  const root = document.getElementById('tab-financing');
+  root.innerHTML = `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.bank}</svg></div>
+        <div>
+          <h2 class="card-title">Loan qualification</h2>
+          <div class="card-subtitle">Construction-to-perm jumbo on a $2.5M target build &middot; figures are illustrative; lender-specific overlays apply</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size:13px;font-weight:600;color:var(--text2);margin:0 0 12px 0;text-transform:uppercase;letter-spacing:0.05em;">Your inputs</h3>
+          <div class="input-row">
+            <div>
+              <label>Gross annual household income</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="fin_income">
+            </div>
+            <div>
+              <label>Existing monthly debts (mortgage, cars, cards, student loans)</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="fin_debts">
+            </div>
+            <div>
+              <label>Liquid assets (cash, brokerage, vested RSUs)</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="fin_reserves">
+              <div style="font-size:11px;color:var(--text3);margin-top:4px;">Total liquid wealth available before closing.</div>
+            </div>
+            <div>
+              <label>Cash applied to down payment</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="fin_cash_down">
+              <div style="font-size:11px;color:var(--text3);margin-top:4px;">Subset of liquid assets you'll bring to closing — buys down the loan. Remainder stays as post-close reserves.</div>
+            </div>
+            <div>
+              <label>Credit score (mid)</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="fin_credit">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label>Permanent rate (%)</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="fin_rate">
+              </div>
+              <div>
+                <label>Term (years)</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="fin_term">
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label>Property tax (% of value)</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="fin_tax_pct">
+              </div>
+              <div>
+                <label>Insurance (annual)</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="fin_insurance">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size:13px;font-weight:600;color:var(--text2);margin:0 0 12px 0;text-transform:uppercase;letter-spacing:0.05em;">Project totals</h3>
+          <div class="metric-grid">
+            <div class="metric-tile">
+              <div class="metric-label">Land cost</div>
+              <div class="metric-value" id="fin_land">$0</div>
+              <div class="metric-sub">Mortgage carry: ${fmtCurrency(LAND_MORTGAGE, { short: true })}</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Land equity</div>
+              <div class="metric-value" id="fin_equity">$0</div>
+              <div class="metric-sub">Land cost − mortgage</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Construction budget</div>
+              <div class="metric-value" id="fin_construction">$0</div>
+              <div class="metric-sub">From Budget tab grand total</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Total project cost</div>
+              <div class="metric-value" id="fin_totalproject">$0</div>
+              <div class="metric-sub">Land + construction</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.scale}</svg></div>
+        <div>
+          <h2 class="card-title">Down payment scenarios</h2>
+          <div class="card-subtitle">Most jumbo construction-perm lenders allow land equity to count toward the down payment</div>
+        </div>
+      </div>
+      <table class="data-table" id="fin_down_table">
+        <thead>
+          <tr>
+            <th>Scenario</th><th>Down %</th><th>Down required</th><th>Land equity covers</th><th>Cash to close*</th><th>Loan amount</th>
+          </tr>
+        </thead>
+        <tbody id="fin_down_rows"></tbody>
+      </table>
+      <div style="font-size:11px;color:var(--text3);margin-top:10px;">
+        * Cash to close = (down required − land equity, floored at $0) + closing costs at 2.5% of loan amount. Your actuals will vary by lender.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.wallet}</svg></div>
+        <div>
+          <h2 class="card-title">Your down-payment scenario</h2>
+          <div class="card-subtitle">Reflects the cash you'll actually apply (from Liquid assets) — drives the DTI & qualification math below</div>
+        </div>
+      </div>
+      <div class="metric-grid" id="fin_scenario_metrics"></div>
+      <div class="callout" id="fin_scenario_callout" style="margin-top:14px;display:none;"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon ${'red'}" id="fin_dti_icon_wrap"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.alert}</svg></div>
+        <div>
+          <h2 class="card-title">DTI & qualification</h2>
+          <div class="card-subtitle">Front-end target ≤36% &middot; back-end ≤43% (jumbo overlays may be stricter)</div>
+        </div>
+      </div>
+
+      <div class="metric-grid" id="fin_dti_metrics"></div>
+
+      <div class="callout" id="fin_qualify_callout"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.clock}</svg></div>
+        <div>
+          <h2 class="card-title">Construction-to-perm mechanics</h2>
+          <div class="card-subtitle">How the loan flows during build, and what to budget for the interest reserve</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--text2);line-height:1.7;">
+            <li><strong>Single close.</strong> One loan, one set of closing costs. Underwritten upfront for the full project cost.</li>
+            <li><strong>Interest-only during build</strong> on the funds drawn (~12–18 months). Draws are tied to inspection-verified milestones.</li>
+            <li><strong>Conversion at completion</strong> to a 30-yr fixed (or whatever term you elect) once Certificate of Occupancy issues.</li>
+            <li><strong>Lender-required reserves</strong> typically 6–12 months of post-conversion PITI in liquid assets.</li>
+            <li><strong>Rate lock</strong> options at conversion vary; some lenders allow forward locks for an extension fee.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="metric-grid">
+            <div class="metric-tile">
+              <div class="metric-label">Interest reserve estimate</div>
+              <div class="metric-value" id="fin_int_reserve">$0</div>
+              <div class="metric-sub">~14 mo &middot; avg ½ of construction draw &middot; at perm rate</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Liquidity required (down + reserves)</div>
+              <div class="metric-value" id="fin_liq_required">$0</div>
+              <div class="metric-sub">Your cash to close + 9-mo PITI reserves</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Initialize input values
+  const v = loadFin();
+  document.getElementById('fin_income').value     = formatNumber(v.income);
+  document.getElementById('fin_debts').value      = formatNumber(v.monthlyDebts);
+  document.getElementById('fin_reserves').value   = formatNumber(v.liquidReserves);
+  document.getElementById('fin_cash_down').value  = formatNumber(v.cashAppliedToDown);
+  document.getElementById('fin_credit').value     = formatNumber(v.creditScore);
+  document.getElementById('fin_rate').value       = formatNumber(v.perm_rate);
+  document.getElementById('fin_term').value       = formatNumber(v.perm_term);
+  document.getElementById('fin_tax_pct').value    = formatNumber(v.prop_tax_pct);
+  document.getElementById('fin_insurance').value  = formatNumber(v.insurance);
+
+  // Bind change handlers — persist on each input
+  ['fin_income','fin_debts','fin_reserves','fin_cash_down','fin_credit','fin_rate','fin_term','fin_tax_pct','fin_insurance'].forEach(id => {
+    document.getElementById(id).addEventListener('input', e => {
+      const map = {
+        fin_income: 'income', fin_debts: 'monthlyDebts', fin_reserves: 'liquidReserves',
+        fin_cash_down: 'cashAppliedToDown',
+        fin_credit: 'creditScore', fin_rate: 'perm_rate', fin_term: 'perm_term',
+        fin_tax_pct: 'prop_tax_pct', fin_insurance: 'insurance'
+      };
+      saveFin(map[id], parseNumericInput(e.target.value) || 0);
+      recalcFinancing();
+    });
+  });
+
+  recalcFinancing();
+}
+
+function recalcFinancing() {
+  const construction = grandTotal ? grandTotal() : 0;
+  const totalProject = LAND_COST + construction;
+  const landEquity = LAND_COST - LAND_MORTGAGE;
+
+  const income = num('fin_income');
+  const monthlyDebts = num('fin_debts');
+  const liquidAssets = num('fin_reserves');
+  const cashDownRaw = num('fin_cash_down');
+  const rate = num('fin_rate');
+  const term = num('fin_term');
+  const taxPct = num('fin_tax_pct');
+  const ins = num('fin_insurance');
+
+  // Clamp cash applied to down payment: 0 ≤ cashApplied ≤ liquidAssets, and total down ≤ project cost
+  const maxCashApplied = Math.min(liquidAssets, Math.max(0, totalProject - landEquity));
+  const cashApplied = Math.max(0, Math.min(cashDownRaw, maxCashApplied));
+
+  const totalDown = landEquity + cashApplied;
+  const effectiveLoanAmt = Math.max(0, totalProject - totalDown);
+  const effectiveLTV = totalProject > 0 ? (effectiveLoanAmt / totalProject) * 100 : 0;
+  const effectiveDownPct = totalProject > 0 ? (totalDown / totalProject) * 100 : 0;
+  const closingCosts = effectiveLoanAmt * 0.025;
+  const cashToClose = cashApplied + closingCosts;
+  const remainingReserves = Math.max(0, liquidAssets - cashApplied);
+
+  // Project totals tiles
+  setText('fin_land',        fmtCurrency(LAND_COST, { short: true }));
+  setText('fin_equity',      fmtCurrency(landEquity, { short: true }));
+  setText('fin_construction',fmtCurrency(construction, { short: true }));
+  setText('fin_totalproject',fmtCurrency(totalProject, { short: true }));
+
+  // Lender minimum-down scenarios (reference table)
+  const downRows = [20, 25, 30].map(pct => {
+    const downReq = totalProject * pct / 100;
+    const equityApplied = Math.min(landEquity, downReq);
+    const cashOutOfPocket = Math.max(0, downReq - landEquity);
+    const loanAmt = totalProject - downReq;
+    const refClosing = loanAmt * 0.025;
+    const refCashToClose = cashOutOfPocket + refClosing;
+    return { pct, downReq, equityApplied, cashToClose: refCashToClose, loanAmt };
+  });
+  document.getElementById('fin_down_rows').innerHTML = downRows.map((r, i) => `
+    <tr ${i === 1 ? 'class="highlight"' : ''}>
+      <td>${r.pct}% down ${i === 1 ? '(typical)' : ''}</td>
+      <td>${r.pct}%</td>
+      <td>${fmtCurrency(r.downReq, { short: true })}</td>
+      <td>${fmtCurrency(r.equityApplied, { short: true })}</td>
+      <td>${fmtCurrency(r.cashToClose, { short: true })}</td>
+      <td>${fmtCurrency(r.loanAmt, { short: true })}</td>
+    </tr>
+  `).join('');
+
+  // ---- Your scenario (drives the math below) ----
+  const minDownPct = 20;
+  const meetsMinDown = effectiveDownPct >= minDownPct;
+  const scenarioFlag = meetsMinDown ? 'flag-good' : 'flag-bad';
+  document.getElementById('fin_scenario_metrics').innerHTML = `
+    <div class="metric-tile">
+      <div class="metric-label">Total down payment</div>
+      <div class="metric-value">${fmtCurrency(totalDown, { short: true })}</div>
+      <div class="metric-sub">Land equity ${fmtCurrency(landEquity, { short: true })} + cash ${fmtCurrency(cashApplied, { short: true })}</div>
+    </div>
+    <div class="metric-tile ${scenarioFlag}">
+      <div class="metric-label">Effective down %</div>
+      <div class="metric-value">${fmtPct(effectiveDownPct)}</div>
+      <div class="metric-sub">Jumbo minimum typically 20–25%</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Loan amount</div>
+      <div class="metric-value">${fmtCurrency(effectiveLoanAmt, { short: true })}</div>
+      <div class="metric-sub">LTV ${fmtPct(effectiveLTV)}</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Cash to close</div>
+      <div class="metric-value">${fmtCurrency(cashToClose, { short: true })}</div>
+      <div class="metric-sub">Down cash + closing costs (2.5% of loan)</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Reserves after closing</div>
+      <div class="metric-value">${fmtCurrency(remainingReserves, { short: true })}</div>
+      <div class="metric-sub">Liquid assets − cash applied</div>
+    </div>
+  `;
+
+  const scenarioCallout = document.getElementById('fin_scenario_callout');
+  if (cashApplied < cashDownRaw) {
+    scenarioCallout.style.display = '';
+    scenarioCallout.className = 'callout warn';
+    scenarioCallout.innerHTML = `
+      <div class="callout-title" style="display:flex;align-items:center;gap:6px;color:var(--orange);">
+        ${svgIcon(ICONS.alert, { size: 14, stroke: 'var(--orange)' })} Cash applied was capped
+      </div>
+      You entered ${fmtCurrency(cashDownRaw, { short: true })} but it was capped at ${fmtCurrency(cashApplied, { short: true })} (limit: liquid assets, or total project cost minus land equity).
+    `;
+  } else if (!meetsMinDown && totalProject > 0) {
+    scenarioCallout.style.display = '';
+    scenarioCallout.className = 'callout warn';
+    const shortfall = (totalProject * 0.20) - totalDown;
+    scenarioCallout.innerHTML = `
+      <div class="callout-title" style="display:flex;align-items:center;gap:6px;color:var(--orange);">
+        ${svgIcon(ICONS.alert, { size: 14, stroke: 'var(--orange)' })} Below the typical 20% jumbo down minimum
+      </div>
+      You'd need an additional ${fmtCurrency(shortfall, { short: true })} of cash applied (or wait for more land/construction value) to hit the 20% threshold most jumbo construction-perm lenders want.
+    `;
+  } else {
+    scenarioCallout.style.display = 'none';
+  }
+
+  // ---- DTI calc — uses Your scenario's loan amount ----
+  const monthlyPI = calcMortgage(effectiveLoanAmt, rate, term);
+  // As-completed value approx = totalProject (conservative, no premium)
+  const asCompletedValue = totalProject;
+  const monthlyTax = (asCompletedValue * taxPct / 100) / 12;
+  const monthlyIns = ins / 12;
+  const projectedPITI = monthlyPI + monthlyTax + monthlyIns;
+  const monthlyIncome = income / 12;
+  const frontEndDTI = monthlyIncome > 0 ? (projectedPITI / monthlyIncome) * 100 : 0;
+  const backEndDTI  = monthlyIncome > 0 ? ((projectedPITI + monthlyDebts) / monthlyIncome) * 100 : 0;
+  const reservesNeeded9mo = projectedPITI * 9;
+  const reservesNeeded12mo = projectedPITI * 12;
+
+  // Required income to qualify at 43% back-end
+  const requiredMonthlyIncome = (projectedPITI + monthlyDebts) / 0.43;
+  const requiredAnnualIncome = requiredMonthlyIncome * 12;
+
+  const flagFE = frontEndDTI > 36 ? 'flag-bad' : (frontEndDTI > 30 ? 'flag-warn' : 'flag-good');
+  const flagBE = backEndDTI  > 43 ? 'flag-bad' : (backEndDTI  > 36 ? 'flag-warn' : 'flag-good');
+  const flagRes = remainingReserves >= reservesNeeded12mo ? 'flag-good' : (remainingReserves >= reservesNeeded9mo ? 'flag-warn' : 'flag-bad');
+  const flagInc = income >= requiredAnnualIncome ? 'flag-good' : 'flag-bad';
+
+  document.getElementById('fin_dti_metrics').innerHTML = `
+    <div class="metric-tile ${flagFE}">
+      <div class="metric-label">Front-end DTI</div>
+      <div class="metric-value">${fmtPct(frontEndDTI)}</div>
+      <div class="metric-sub">PITI ÷ gross monthly income &middot; target ≤36%</div>
+    </div>
+    <div class="metric-tile ${flagBE}">
+      <div class="metric-label">Back-end DTI</div>
+      <div class="metric-value">${fmtPct(backEndDTI)}</div>
+      <div class="metric-sub">(PITI + debts) ÷ gross income &middot; target ≤43%</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Projected monthly PITI</div>
+      <div class="metric-value">${fmtCurrency(projectedPITI, { short: false })}</div>
+      <div class="metric-sub">P&amp;I ${fmtCurrency(monthlyPI, { short: false })} + tax + ins</div>
+    </div>
+    <div class="metric-tile ${flagRes}">
+      <div class="metric-label">Reserves after closing</div>
+      <div class="metric-value">${fmtCurrency(remainingReserves, { short: true })}</div>
+      <div class="metric-sub">Lender wants ≥${fmtCurrency(reservesNeeded9mo, { short: true })} (9-mo) &middot; ≥${fmtCurrency(reservesNeeded12mo, { short: true })} (12-mo)</div>
+    </div>
+    <div class="metric-tile ${flagInc}">
+      <div class="metric-label">Income required to qualify</div>
+      <div class="metric-value">${fmtCurrency(requiredAnnualIncome, { short: true })}</div>
+      <div class="metric-sub">at 43% back-end DTI &middot; you have ${fmtCurrency(income, { short: true })}</div>
+    </div>
+    <div class="metric-tile">
+      <div class="metric-label">Credit score</div>
+      <div class="metric-value">${num('fin_credit') || '—'}</div>
+      <div class="metric-sub">Jumbo typically wants 720+ &middot; best pricing 760+</div>
+    </div>
+  `;
+
+  // Qualification callout
+  const issues = [];
+  if (frontEndDTI > 36) issues.push(`front-end DTI ${fmtPct(frontEndDTI)} exceeds 36%`);
+  if (backEndDTI > 43)  issues.push(`back-end DTI ${fmtPct(backEndDTI)} exceeds 43%`);
+  if (remainingReserves < reservesNeeded9mo) issues.push(`post-close reserves below 9-mo PITI (${fmtCurrency(reservesNeeded9mo, { short: true })})`);
+  if (income < requiredAnnualIncome) issues.push(`income ${fmtCurrency(income, { short: true })} below the ${fmtCurrency(requiredAnnualIncome, { short: true })} needed`);
+  if (!meetsMinDown && totalProject > 0) issues.push(`down payment ${fmtPct(effectiveDownPct)} below jumbo 20% minimum`);
+
+  const callout = document.getElementById('fin_qualify_callout');
+  if (issues.length === 0) {
+    callout.className = 'callout';
+    callout.innerHTML = `
+      <div class="callout-title" style="color:#1f9b34;display:flex;align-items:center;gap:6px;">
+        ${svgIcon(ICONS.check, { size: 14, stroke: '#1f9b34' })} Qualified on these inputs
+      </div>
+      DTI, down payment, post-close reserves, and income all meet typical jumbo construction-perm thresholds. Final approval still depends on the lender's underwriting.
+    `;
+  } else {
+    callout.className = 'callout warn';
+    callout.innerHTML = `
+      <div class="callout-title" style="color:var(--orange);display:flex;align-items:center;gap:6px;">
+        ${svgIcon(ICONS.alert, { size: 14, stroke: 'var(--orange)' })} Gaps to close before applying
+      </div>
+      <ul>${issues.map(i => `<li>${i}</li>`).join('')}</ul>
+    `;
+  }
+
+  // DTI icon color
+  const iconWrap = document.getElementById('fin_dti_icon_wrap');
+  if (iconWrap) {
+    iconWrap.classList.remove('red', 'orange', 'green');
+    if (issues.length === 0) iconWrap.classList.add('green');
+    else if (issues.length <= 1) iconWrap.classList.add('orange');
+    else iconWrap.classList.add('red');
+  }
+
+  // Construction-to-perm specifics — based on Your scenario
+  const interestReserve = (effectiveLoanAmt * 0.5) * (rate / 100) / 12 * 14;
+  setText('fin_int_reserve', fmtCurrency(interestReserve, { short: true }));
+  const liqRequired = cashApplied + closingCosts + reservesNeeded9mo;
+  setText('fin_liq_required', fmtCurrency(liqRequired, { short: true }));
+
+  // Publish the user's scenario so the Assets mortgage calculator can default to it
+  Store.set('financing.effectiveLoan', effectiveLoanAmt);
+  Bus.emit('financing:scenario', { effectiveLoanAmt, cashApplied, totalDown, totalProject });
+}
+
+function setText(id, txt) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = txt;
+}
+
+// Re-recalc financing whenever budget changes
+Bus.on('budget:total', () => {
+  if (document.getElementById('fin_income')) recalcFinancing();
+});
+/* ============================================================
+   Assets tab — equity snapshot + mortgage calculator
+   ============================================================ */
+const ASSET_DEFAULTS = {
+  land_value:      LAND_COST,
+  land_mortgage:   LAND_MORTGAGE,
+  asCompletedMult: 1.10,    // Los Gatos premium multiplier on (land + construction)
+  loan_rate:       6.5,
+  loan_term:       30,
+  prop_tax_pct:    1.25,
+  insurance:       4500,
+  hoa:             0,
+  // Monthly cost-of-ownership extras (defaults are working estimates)
+  utilities:       550,    // electric, gas, water, septic service, trash combined
+  internet:        120,    // ISP + streaming bundle
+  maint_pct:       1.0,    // % of as-completed value per year (industry rule of thumb)
+  eq_insurance:    0       // optional earthquake / fire rider, monthly
+};
+
+function loadAsset(k) {
+  return Store.get('assets.' + k, ASSET_DEFAULTS[k]);
+}
+function saveAsset(k, v) { Store.set('assets.' + k, v); }
+
+function renderAssets() {
+  const root = document.getElementById('tab-assets');
+  root.innerHTML = `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.trending}</svg></div>
+        <div>
+          <h2 class="card-title">Asset & equity snapshot</h2>
+          <div class="card-subtitle">Land position now, projected position at completion</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="input-row">
+            <div>
+              <label>Land value (today)</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="ast_land_value">
+            </div>
+            <div>
+              <label>Land mortgage balance</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="ast_land_mtg">
+            </div>
+            <div>
+              <label>As-completed appraisal multiplier</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="ast_mult">
+              <div style="font-size:11px;color:var(--text3);margin-top:4px;">Multiplied against (land + construction). 1.10 ≈ modest Los Gatos premium.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="metric-grid">
+            <div class="metric-tile">
+              <div class="metric-label">Land equity now</div>
+              <div class="metric-value" id="ast_equity_now">$0</div>
+              <div class="metric-sub">Value − mortgage balance</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">As-completed value (est.)</div>
+              <div class="metric-value" id="ast_completed">$0</div>
+              <div class="metric-sub">From multiplier &middot; subject to appraisal</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">LTV at conversion</div>
+              <div class="metric-value" id="ast_ltv">—</div>
+              <div class="metric-sub" id="ast_ltv_sub">Loan ÷ as-completed value</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Equity at completion</div>
+              <div class="metric-value" id="ast_equity_done">$0</div>
+              <div class="metric-sub">Value − projected loan balance</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.calculator || ICONS.dollar}</svg></div>
+        <div>
+          <h2 class="card-title">Permanent mortgage calculator</h2>
+          <div class="card-subtitle">Models the loan after construction-to-perm conversion</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="input-row">
+            <div>
+              <label>Loan amount</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="mc_loan">
+              <div style="font-size:11px;color:var(--text3);margin-top:4px;">Defaults to your <strong>Financing</strong> scenario (project − land equity − cash down). Override freely.</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label>Rate (%)</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="mc_rate">
+              </div>
+              <div>
+                <label>Term</label>
+                <select id="mc_term" style="width:100%;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--text);">
+                  <option value="30">30 years</option>
+                  <option value="20">20 years</option>
+                  <option value="15">15 years</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+              <div>
+                <label>Tax %</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="mc_tax">
+              </div>
+              <div>
+                <label>Insurance / yr</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="mc_ins">
+              </div>
+              <div>
+                <label>HOA / mo</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="mc_hoa">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="metric-grid">
+            <div class="metric-tile">
+              <div class="metric-label">Monthly P&amp;I</div>
+              <div class="metric-value" id="mc_pi">$0</div>
+              <div class="metric-sub">Principal + interest</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Monthly PITI</div>
+              <div class="metric-value" id="mc_piti">$0</div>
+              <div class="metric-sub">P&amp;I + tax + ins + HOA</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Total interest (term)</div>
+              <div class="metric-value" id="mc_int">$0</div>
+              <div class="metric-sub">Over full term</div>
+            </div>
+            <div class="metric-tile">
+              <div class="metric-label">Total cost of loan</div>
+              <div class="metric-value" id="mc_total">$0</div>
+              <div class="metric-sub">Principal + interest</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.alert}</svg></div>
+        <div>
+          <h2 class="card-title">Rate sensitivity</h2>
+          <div class="card-subtitle">Monthly PITI if rates drift before conversion</div>
+        </div>
+      </div>
+      <table class="data-table" id="mc_sens_table">
+        <thead><tr><th>Rate</th><th>Monthly P&amp;I</th><th>Monthly PITI</th><th>Δ vs current</th></tr></thead>
+        <tbody id="mc_sens_rows"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon indigo"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.layers}</svg></div>
+        <div>
+          <h2 class="card-title">Amortization milestones</h2>
+          <div class="card-subtitle">Loan balance and equity at key years</div>
+        </div>
+      </div>
+      <table class="data-table" id="mc_amort_table">
+        <thead><tr><th>Year</th><th>Balance</th><th>Equity</th><th>Total interest paid</th><th>Total principal paid</th></tr></thead>
+        <tbody id="mc_amort_rows"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">${ICONS.wallet}</svg></div>
+        <div>
+          <h2 class="card-title">Total monthly cost of ownership</h2>
+          <div class="card-subtitle">Mortgage + tax + insurance + recurring expenses &middot; the "true" monthly outlay</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3 style="font-size:13px;font-weight:600;color:var(--text2);margin:0 0 12px 0;text-transform:uppercase;letter-spacing:0.05em;">Recurring expenses</h3>
+          <div class="input-row">
+            <div>
+              <label>Utilities (electric, gas, water, septic, trash)</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="ast_utilities">
+              <div style="font-size:11px;color:var(--text3);margin-top:4px;">Monthly. Larger homes + hillside septic pumping push this higher.</div>
+            </div>
+            <div>
+              <label>Internet & services</label>
+              <input type="text" inputmode="decimal" class="numeric-input" id="ast_internet">
+              <div style="font-size:11px;color:var(--text3);margin-top:4px;">Monthly. ISP + any streaming/security/landline bundle.</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label>Maintenance reserve (% of value / yr)</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="ast_maint_pct">
+                <div style="font-size:11px;color:var(--text3);margin-top:4px;">1% rule of thumb. New build needs less early; budget more after year 10.</div>
+              </div>
+              <div>
+                <label>Earthquake / fire rider (mo)</label>
+                <input type="text" inputmode="decimal" class="numeric-input" id="ast_eq_ins">
+                <div style="font-size:11px;color:var(--text3);margin-top:4px;">Optional. SCC + HR1 high-fire zone — quotes vary widely.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size:13px;font-weight:600;color:var(--text2);margin:0 0 12px 0;text-transform:uppercase;letter-spacing:0.05em;">Monthly breakdown</h3>
+          <table class="data-table" id="mc_monthly_table">
+            <tbody id="mc_monthly_rows"></tbody>
+            <tfoot id="mc_monthly_total"></tfoot>
+          </table>
+          <div style="font-size:11px;color:var(--text3);margin-top:10px;">
+            Property tax, insurance, HOA, P&amp;I, and rate flow from the mortgage calculator above.
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Initialize values
+  document.getElementById('ast_land_value').value = formatNumber(loadAsset('land_value'));
+  document.getElementById('ast_land_mtg').value   = formatNumber(loadAsset('land_mortgage'));
+  document.getElementById('ast_mult').value       = formatNumber(loadAsset('asCompletedMult'));
+  const storedLoan = Store.get('assets.loan_amt', '');
+  document.getElementById('mc_loan').value        = storedLoan === '' || storedLoan == null ? '' : formatNumber(storedLoan);
+  document.getElementById('mc_rate').value        = formatNumber(loadAsset('loan_rate'));
+  document.getElementById('mc_term').value        = loadAsset('loan_term');
+  document.getElementById('mc_tax').value         = formatNumber(loadAsset('prop_tax_pct'));
+  document.getElementById('mc_ins').value         = formatNumber(loadAsset('insurance'));
+  document.getElementById('mc_hoa').value         = formatNumber(loadAsset('hoa'));
+  document.getElementById('ast_utilities').value  = formatNumber(loadAsset('utilities'));
+  document.getElementById('ast_internet').value   = formatNumber(loadAsset('internet'));
+  document.getElementById('ast_maint_pct').value  = formatNumber(loadAsset('maint_pct'));
+  document.getElementById('ast_eq_ins').value     = formatNumber(loadAsset('eq_insurance'));
+
+  // Bind change handlers
+  const bindings = {
+    ast_land_value: 'land_value',
+    ast_land_mtg:   'land_mortgage',
+    ast_mult:       'asCompletedMult',
+    mc_loan:        'loan_amt',
+    mc_rate:        'loan_rate',
+    mc_term:        'loan_term',
+    mc_tax:         'prop_tax_pct',
+    mc_ins:         'insurance',
+    mc_hoa:         'hoa',
+    ast_utilities:  'utilities',
+    ast_internet:   'internet',
+    ast_maint_pct:  'maint_pct',
+    ast_eq_ins:     'eq_insurance'
+  };
+  Object.entries(bindings).forEach(([id, key]) => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', e => {
+      const v = parseNumericInput(e.target.value);
+      saveAsset(key, isNaN(v) ? e.target.value : v);
+      recalcAssets();
+    });
+    if (el.tagName === 'SELECT') {
+      el.addEventListener('change', e => {
+        saveAsset(key, parseNumericInput(e.target.value));
+        recalcAssets();
+      });
+    }
+  });
+
+  recalcAssets();
+}
+
+function recalcAssets() {
+  const construction = grandTotal ? grandTotal() : 0;
+  const landValue = num('ast_land_value');
+  const landMtg = num('ast_land_mtg');
+  const mult = num('ast_mult') || 1;
+
+  const equityNow = landValue - landMtg;
+  const totalProject = landValue + construction;
+  const completedValue = totalProject * mult;
+
+  setText('ast_equity_now', fmtCurrency(equityNow, { short: true }));
+  setText('ast_completed', fmtCurrency(completedValue, { short: true }));
+
+  // Default loan amount: prefer the Financing panel's effective loan
+  // (project − land equity − cash down). Fall back to 75% LTV of completed value.
+  const loanInput = document.getElementById('mc_loan');
+  let loanAmt = parseNumericInput(loanInput.value);
+  let loanSourceLabel = 'Loan ÷ as-completed value';
+  if (!loanAmt || isNaN(loanAmt)) {
+    const finLoan = Number(Store.get('financing.effectiveLoan', 0)) || 0;
+    if (finLoan > 0) {
+      loanAmt = Math.round(finLoan);
+      loanSourceLabel = 'From Financing scenario';
+    } else {
+      loanAmt = Math.round(completedValue * 0.75);
+      loanSourceLabel = 'Default 75% LTV (no Financing data yet)';
+    }
+    loanInput.value = (document.activeElement === loanInput)
+      ? String(loanAmt)
+      : formatNumber(loanAmt);
+  } else if (Store.get('assets.loan_amt')) {
+    loanSourceLabel = 'Custom override';
+  }
+  const rate = num('mc_rate');
+  const term = num('mc_term');
+  const taxPct = num('mc_tax');
+  const ins = num('mc_ins');
+  const hoa = num('mc_hoa');
+
+  const pi = calcMortgage(loanAmt, rate, term);
+  const monthlyTax = (completedValue * taxPct / 100) / 12;
+  const monthlyIns = ins / 12;
+  const piti = pi + monthlyTax + monthlyIns + hoa;
+  const totalPaid = pi * term * 12;
+  const totalInterest = Math.max(0, totalPaid - loanAmt);
+
+  setText('mc_pi', fmtCurrency(pi, { cents: false }));
+  setText('mc_piti', fmtCurrency(piti, { cents: false }));
+  setText('mc_int', fmtCurrency(totalInterest, { short: true }));
+  setText('mc_total', fmtCurrency(totalPaid, { short: true }));
+
+  // LTV + as-completed equity (immediately after closing, before any principal paid)
+  const ltv = completedValue > 0 ? (loanAmt / completedValue) * 100 : 0;
+  setText('ast_ltv', fmtPct(ltv));
+  setText('ast_ltv_sub', loanSourceLabel);
+  setText('ast_equity_done', fmtCurrency(completedValue - loanAmt, { short: true }));
+
+  // Rate sensitivity
+  const offsets = [-1, -0.5, 0, 0.5, 1];
+  document.getElementById('mc_sens_rows').innerHTML = offsets.map(off => {
+    const r = rate + off;
+    const piX = calcMortgage(loanAmt, r, term);
+    const pitiX = piX + monthlyTax + monthlyIns + hoa;
+    const delta = pitiX - piti;
+    const cls = off === 0 ? 'highlight' : '';
+    const dColor = delta > 0 ? 'var(--red)' : (delta < 0 ? '#1f9b34' : 'var(--text2)');
+    const dSign = delta > 0 ? '+' : '';
+    return `
+      <tr class="${cls}">
+        <td>${r.toFixed(2)}%${off === 0 ? ' (current)' : ''}</td>
+        <td>${fmtCurrency(piX, { cents: false })}</td>
+        <td>${fmtCurrency(pitiX, { cents: false })}</td>
+        <td style="color:${dColor};font-weight:600;">${dSign}${fmtCurrency(delta, { cents: false })}</td>
+      </tr>
+    `;
+  }).join('');
+
+  // Amortization milestones
+  const milestones = [1, 3, 5, 7, 10, 15, 20, 30].filter(y => y <= term);
+  if (!milestones.includes(term)) milestones.push(term);
+  const sched = amortSchedule(loanAmt, rate, term);
+  document.getElementById('mc_amort_rows').innerHTML = milestones.map(y => {
+    const idx = Math.min(y * 12 - 1, sched.length - 1);
+    const e = sched[idx];
+    return `
+      <tr ${y === term ? 'class="highlight"' : ''}>
+        <td>Year ${y}</td>
+        <td>${fmtCurrency(e.balance, { short: true })}</td>
+        <td>${fmtCurrency(completedValue - e.balance, { short: true })}</td>
+        <td>${fmtCurrency(e.totalInterest, { short: true })}</td>
+        <td>${fmtCurrency(e.totalPrincipal, { short: true })}</td>
+      </tr>
+    `;
+  }).join('');
+
+  // Total monthly cost of ownership
+  const utilities = num('ast_utilities');
+  const internet  = num('ast_internet');
+  const maintPct  = num('ast_maint_pct');
+  const eqIns     = num('ast_eq_ins');
+  const monthlyMaint = (completedValue * (maintPct / 100)) / 12;
+
+  const monthlyRows = [
+    { label: 'Mortgage (P&I)',            amount: pi,          source: 'auto' },
+    { label: 'Property tax',              amount: monthlyTax,  source: `${fmtPct(taxPct)} of as-completed value` },
+    { label: 'Homeowners insurance',      amount: monthlyIns,  source: `${fmtCurrency(ins, { short: true })} / yr` },
+    { label: 'HOA',                       amount: hoa,         source: hoa > 0 ? 'monthly' : '—' },
+    { label: 'PITI subtotal',             amount: pi + monthlyTax + monthlyIns + hoa, isSubtotal: true },
+    { label: 'Utilities',                 amount: utilities,   source: 'electric, gas, water, septic, trash' },
+    { label: 'Internet & services',       amount: internet,    source: 'monthly' },
+    { label: 'Maintenance reserve',       amount: monthlyMaint, source: `${fmtPct(maintPct, 2)} / yr of value` },
+    { label: 'Earthquake / fire rider',   amount: eqIns,       source: 'optional' }
+  ];
+  const monthlyTotal = pi + monthlyTax + monthlyIns + hoa + utilities + internet + monthlyMaint + eqIns;
+  const annualTotal = monthlyTotal * 12;
+
+  document.getElementById('mc_monthly_rows').innerHTML = monthlyRows.map(r => `
+    <tr ${r.isSubtotal ? 'class="highlight"' : ''}>
+      <td>${r.label}</td>
+      <td style="color:var(--text3);font-size:11px;">${r.source || ''}</td>
+      <td>${fmtCurrency(r.amount, { cents: false })}</td>
+    </tr>
+  `).join('');
+  document.getElementById('mc_monthly_total').innerHTML = `
+    <tr class="highlight" style="border-top:2px solid var(--border);">
+      <td style="font-size:13px;font-weight:700;">Total monthly</td>
+      <td style="color:var(--text3);font-size:11px;">${fmtCurrency(annualTotal, { short: true })} / year</td>
+      <td style="font-size:18px;font-weight:700;color:var(--blue);">${fmtCurrency(monthlyTotal, { cents: false })}</td>
+    </tr>
+  `;
+}
+
+/** Returns array of {month, balance, totalInterest, totalPrincipal} */
+function amortSchedule(principal, annualRatePct, years) {
+  const r = (Number(annualRatePct) || 0) / 100 / 12;
+  const n = (Number(years) || 0) * 12;
+  const monthly = calcMortgage(principal, annualRatePct, years);
+  let balance = principal;
+  let ti = 0, tp = 0;
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const interest = balance * r;
+    const princ = monthly - interest;
+    balance = Math.max(0, balance - princ);
+    ti += interest;
+    tp += princ;
+    out.push({ month: i + 1, balance, totalInterest: ti, totalPrincipal: tp });
+  }
+  return out;
+}
+
+// Re-recalc assets when budget changes (default loan amount may need to update if user hasn't overridden)
+Bus.on('budget:total', () => {
+  if (document.getElementById('mc_loan')) {
+    // Only reset default if user hasn't set a custom value (we use stored value as signal)
+    const stored = Store.get('assets.loan_amt');
+    if (!stored) {
+      // Force re-default
+      document.getElementById('mc_loan').value = '';
+      recalcAssets();
+    } else {
+      recalcAssets();
+    }
+  }
+});
+
+// Re-recalc assets when the Financing scenario changes (cash applied to down,
+// liquid assets, etc.). If the user hasn't manually overridden the loan amount,
+// pull the new default from Financing.
+Bus.on('financing:scenario', () => {
+  if (!document.getElementById('mc_loan')) return;
+  const stored = Store.get('assets.loan_amt');
+  if (!stored) {
+    document.getElementById('mc_loan').value = '';
+    recalcAssets();
+  } else {
+    recalcAssets();
+  }
+});
+
+/* ============================================================
+   Bootstrap
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  Store.load();
+  bindNumericInputFormatting();
+  renderSectionDropdown();
+  renderHero();
+  renderTimeline();
+  renderBudget();
+  renderFinancing();
+  renderAssets();
+
+  // Restore last active tab
+  const last = Store.get('ui.activeTab');
+  if (last) switchTab(last);
+});
+</script>
+</body>
+</html>
