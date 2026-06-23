@@ -69,6 +69,29 @@
     color: var(--text3); font-size: 13px;
   }
 
+  /* ===== Topnav sync actions (Import / Export) ===== */
+  .topnav-actions {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-topnav {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 10px;
+    background: rgba(0,0,0,0.04);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn-topnav:hover {
+    background: rgba(0,0,0,0.08);
+  }
+  .btn-topnav svg { stroke: var(--text2); }
+  .btn-topnav:hover svg { stroke: var(--text); }
+
   /* ===== Section dropdown (in topnav) ===== */
   .section-dropdown {
     position: relative;
@@ -760,7 +783,26 @@
 
     <div class="section-dropdown" id="sectionDropdown"></div>
 
-    <div class="topnav-meta" id="topnavMeta">East Los Gatos, CA &middot; HR1 hillside</div>
+    <div class="topnav-actions">
+      <button class="btn-topnav" id="btn_import" title="Import LosGatosProject.json (replaces current data)" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        Import
+      </button>
+      <button class="btn-topnav" id="btn_export" title="Export current data as LosGatosProject.json" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export
+      </button>
+      <span class="topnav-meta" id="topnavMeta">East Los Gatos, CA &middot; HR1 hillside</span>
+      <input type="file" id="import_file_input" accept="application/json,.json" hidden>
+    </div>
   </div>
 </header>
 
@@ -916,6 +958,71 @@ const Store = {
     this.save();
   }
 };
+
+/* ============================================================
+   Export / Import — JSON sync via local file
+   ============================================================ */
+function exportProjectJSON() {
+  const payload = {
+    schema: 'losGatos.project.v1',
+    exportedAt: new Date().toISOString(),
+    data: Store.data
+  };
+  const json = JSON.stringify(payload, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'LosGatosProject.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function importProjectJSON(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    let imported;
+    try {
+      imported = JSON.parse(e.target.result);
+    } catch (err) {
+      alert('Could not parse the file as JSON.\n\n' + err.message);
+      return;
+    }
+    if (typeof imported !== 'object' || imported === null) {
+      alert('Imported file is not a valid project JSON.');
+      return;
+    }
+    // Accept either { schema, exportedAt, data } wrapped form or a raw store object.
+    const newData = (imported.schema && imported.data && typeof imported.data === 'object')
+      ? imported.data
+      : imported;
+    const stamp = imported.exportedAt
+      ? `\n\nFile exported: ${imported.exportedAt}`
+      : '';
+    if (!confirm('Replace your current project data with this file?' + stamp + '\n\nYour existing edits will be overwritten.')) {
+      return;
+    }
+    Store.data = newData;
+    Store.save();
+    location.reload();
+  };
+  reader.onerror = () => alert('Failed to read the file.');
+  reader.readAsText(file);
+}
+
+function bindSyncControls() {
+  document.getElementById('btn_export').addEventListener('click', exportProjectJSON);
+  document.getElementById('btn_import').addEventListener('click', () => {
+    document.getElementById('import_file_input').click();
+  });
+  document.getElementById('import_file_input').addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (file) importProjectJSON(file);
+    e.target.value = ''; // allow re-importing same filename
+  });
+}
 
 /* ============================================================
    Section dropdown (replaces tab bar)
@@ -2994,6 +3101,7 @@ Bus.on('financing:scenario', () => {
 document.addEventListener('DOMContentLoaded', () => {
   Store.load();
   bindNumericInputFormatting();
+  bindSyncControls();
   renderSectionDropdown();
   renderHero();
   renderTimeline();
