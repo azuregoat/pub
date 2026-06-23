@@ -531,8 +531,18 @@
     background: #fff;
     color: var(--text);
     display: none;
+    max-width: 140px;
   }
   .gantt.edit-mode .cat-select { display: inline-block; }
+
+  /* In edit mode, the row holds: handle | num | name input | cat select | delete.
+     Widen the phase column so the name input doesn't collapse to zero width. */
+  .gantt.edit-mode .gantt-row {
+    grid-template-columns: 380px 1fr;
+  }
+  .gantt.edit-mode .gantt-label-name {
+    min-width: 80px;
+  }
   .gantt-tooltip {
     position: absolute;
     bottom: calc(100% + 6px);
